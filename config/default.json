@@ -1,0 +1,3 @@
+{
+    "mongoURI": "mongodb+srv://admin:root@cluster0.vee37.mongodb.net/College_Event_Management_System?retryWrites=true&w=majority"
+}
