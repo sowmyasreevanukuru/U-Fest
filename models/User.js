@@ -19,11 +19,19 @@ const UserSchema = new mongoose.Schema({
         required: true
     },
     contact:{
+        unique:true,
         type: String,
-        required: true
+        required: true,
+        validate(value){
+            if(value.length !=10)
+            {
+                throw new Error('Invalid contact number')
+            }
+        }
     },
     role:{
-        type: String
+        type: String,
+        default:'Admin'
     },
     enrollment:{
         type:String

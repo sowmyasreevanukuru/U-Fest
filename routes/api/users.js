@@ -11,7 +11,7 @@ router.post('/',[
     check('name','name is required').not().isEmpty(),
     check('email','include valid email').isEmail(),
     check('password','Enter a password with minimum 6 characters').isLength({min: 6}),
-    check("contact", "Enter Valid Number").matches(RegExp("^[6-9]\\d{9}$"))
+    check('contact', 'Enter Valid Number').matches(RegExp("^[6-9]\\d{9}$"))
 ],
 async (req,res) => {
     const errors = validationResult(req);
@@ -21,19 +21,21 @@ async (req,res) => {
     }
 
     
-    const{name,email,password} = req.body;
+    const{name,email,password,contact,department} = req.body;
     try{
 
         let user = await User.findOne({email});
 
-        //check if user exists
+        //check if user exists 
         if(user){
-            res.status(400).json({errors: [{msg:'User already exists'}]});
+           return res.status(400).json({errors: [{msg:'User already exists'}]});
         }
         user = new User({
             name,
             email,
-            password
+            password,
+            contact,
+            department
         });
 
         //encrypt using bcrypt
