@@ -31,7 +31,7 @@ const UserSchema = new mongoose.Schema({
     },
     role:{
         type: String,
-        default:'Coordinator'
+        default:'Coordinator' 
     }
 });
 
