@@ -31,10 +31,7 @@ const UserSchema = new mongoose.Schema({
     },
     role:{
         type: String,
-        default:'Admin'
-    },
-    enrollment:{
-        type:String
+        default:'Coordinator'
     }
 });
 

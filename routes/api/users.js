@@ -8,10 +8,10 @@ const User = require('../../models/User');
 // @desc    Register route
 // @access  Public
 router.post('/',[
-    check('name','name is required').not().isEmpty(),
-    check('email','include valid email').isEmail(),
+    check('name','Please provide name').not().isEmpty(),
+    check('email','Please provide valid email address').isEmail(),
     check('password','Enter a password with minimum 6 characters').isLength({min: 6}),
-    check('contact', 'Enter Valid Number').matches(RegExp("^[6-9]\\d{9}$"))
+    check('contact', 'Provide valid contact number').matches(RegExp("^[6-9]\\d{9}$"))
 ],
 async (req,res) => {
     const errors = validationResult(req);
@@ -47,9 +47,9 @@ async (req,res) => {
 
     }catch(err){
         console.error(err.message);
-        res.status(500).send('server error');
+        res.status(500).send('Server Error');
     }
-    res.send('User registered!');
+    res.send('Co-ordinator Registered!');
 }); 
 
 module.exports = router;
