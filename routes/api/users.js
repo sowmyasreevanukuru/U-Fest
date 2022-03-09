@@ -51,21 +51,22 @@ async (req,res) => {
             user: {
                 id: user.id
             }
-        }
+        };
         jwt.sign(
             payload, 
             config.get('jwtSecret'),
             {expiresIn:360000},
             (err, token) => {
                 if(err) throw err;
-                res.json({token });
-            });
+                res.json({ token });
+            }
+        ); 
 
     }catch(err){
         console.error(err.message);
         res.status(500).send('Server Error');
     }
-    res.send('Co-ordinator Registered!');
+   // res.send('Co-ordinator Registered!');
 }); 
 
 module.exports = router;
