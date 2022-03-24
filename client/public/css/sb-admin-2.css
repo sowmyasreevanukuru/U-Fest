@@ -4024,6 +4024,7 @@ input[type="button"].btn-block {
 .nav-link {
   display: block;
   padding: 0.5rem 1rem;
+  color: #1c294e;
 }
 
 .nav-link:hover, .nav-link:focus {
@@ -10861,9 +10862,11 @@ a:focus {
 }
 
 .bg-login-image {
-  background: url("https://source.unsplash.com/K4mSJ7kc0As/600x800");
-  background-position: center;
-  background-size: cover;
+  background: url("e.jpg");
+  background-position: left;
+  background-size: auto;
+  
+  
 }
 
 .bg-register-image {
