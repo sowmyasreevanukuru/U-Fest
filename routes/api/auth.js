@@ -8,7 +8,7 @@ const config = require('config');
 const jwt = require('jsonwebtoken');
 
 // @route   GET api/auth   
-// @desc    Test route
+// @desc    get current logged in user
 // @access  Public
 router.get('/',auth,async (req,res) => {
     try{
