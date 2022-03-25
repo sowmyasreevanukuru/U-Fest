@@ -11,9 +11,7 @@ const Navbar = () => {
     </button>
     <div className="collapse navbar-collapse" id="navbarSupportedContent">
       <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-       <li className="nav-item active">
-          <a className="nav-link" href="Login">Register</a>
-        </li>
+       
         <li className="nav-item dropdown">
           <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Dropdown
@@ -29,6 +27,9 @@ const Navbar = () => {
       </ul>
       <form className="d-flex">
       <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+      <li className="nav-item active">
+          <a className="nav-link" href="Login">Register</a>
+        </li>
         <li className="nav-item">
           <a className="btn btn-outline-primary" href="Login">Login</a>
         </li>
