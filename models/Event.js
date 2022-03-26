@@ -1,38 +1,31 @@
 const mongoose = require('mongoose');
 
 const EventSchema = new mongoose.Schema({
-    name:{
+    eventname:{
         type: String,
         required: true
     },
-    department:{
+    coordinatorname:{
         type: String,
         required: true
     },
-    email:{
-        type: String,
-        required: true,
-        unique: true
-    },
-    password:{
+    venue:{
         type: String,
         required: true
     },
-    contact:{
-        unique:true,
+    noofparticipants:{
         type: String,
-        required: true,
-        validate(value){
-            if(value.length !=10)
-            {
-                throw new Error('Invalid contact number')
-            }
-        }
+        required: true
     },
-    role:{
+    eventdesc:{
         type: String,
-        default:'Coordinator' 
+        required: true
+    },
+    rules:{
+        type: String,
+        required: true
     }
+
 });
 
 module.exports = Event = mongoose.model('event', EventSchema);

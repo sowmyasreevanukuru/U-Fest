@@ -11,20 +11,19 @@ const {check,validationResult} = require('express-validator/check');
 router.get('/me',auth, async(req,res) => {
     try{
         const profile = await Profile.findOne({ user: req.user.id}).populate('user',
-        ['name','email']);
+        ['name','department','email','password','contact','role']);
 
         if(!profile){
             return res.status(400).json({msg: 'There is no profile for this user'});
         }
         res.json(profile);
-
     }catch(err){
         console.error(err.message);
         res.status(500).send("Server Error"); 
     }
 });
 
-// @route   POST api/profile/me 
+// @route   POST api/profile
 // @desc    Create or Update user profile
 // @access  Private
 router.post(
@@ -32,12 +31,7 @@ router.post(
     [
         auth, 
         [
-           check('status', 'Status is required')
-            .not()
-            .isEmpty(),
-           check('event','Event is required')
-            .not() 
-            .isEmpty()
+           
         ]
     ],
     async(req,res) => {
@@ -45,6 +39,32 @@ router.post(
         if(!errors.isEmpty()){
             return res.status(400).json({errors: errors.array()});
         }
+        const {
+            
+        } = req.body
+
+        //build profile object
+        const profileFields = {};
+        profileFields.user = req.user.id;
+        try{
+            let profile = Profile.findOne({ user: req.user.id});
+            if (profile){
+                profile = await Profile.findOneAndUpdate(
+                    { user: req.user.id},
+                    {$set: profileFields},
+                    { new: true}
+                );
+                return res.json(profile);
+            }
+            //create 
+            profile = new Profile(profileFields);
+            await profile.save();
+            res.json(profile);
+        }catch(err){
+            console.error(err.message)
+            res.status(500).send('Server error');
+        }
     }
 );
+
 module.exports = router;
