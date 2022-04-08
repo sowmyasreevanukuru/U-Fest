@@ -1,9 +1,18 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import axios from 'axios';
-
+import { Table } from 'react-bootstrap';
 
 
 export const Coordinators_Admin = () => {
+    const [data,setData] = useState([]);
+    useEffect(async()=>{
+        let result = await axios.get("api/users/all");
+        setData(result.data.data)
+    },[])
+    console.warn("result",data)
+
+
+
     const[formData,setFormData] = useState({
         name: "",
         email: "",
@@ -43,11 +52,14 @@ export const Coordinators_Admin = () => {
           config
         ); 
         //swal("Registered!", "Registered successfully!", "success");
-      
+         
       }catch(err){
         console.log(err.response.data);
       }
     }
+
+
+
     return (
     <div className='sb-nav-fixed'>
         <div id='layoutSidenav'>
@@ -129,27 +141,34 @@ export const Coordinators_Admin = () => {
                                         <tr>
                                             <th>Name</th>
                                             <th>Email</th>
+                                            <th>Contact</th>
                                             <th>Department</th>
                                             <th>Event</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>ss</td>
-                                            <td>aDSca</td>
-                                            <td>sdf</td>
-                                            <td>asd</td>
-                                            <td>sefw</td>
-                                            <td>
-                                                <button type="submit" className="btn btn-outline-success btn-sm" style={{marginRight:'10px'}}>
-                                                    <i class="fas fa-edit"></i>
-                                                </button>
-                                                <button type="submit" className="btn btn-outline-danger btn-sm">
-                                                    <i class="fas fa-user-times"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
+                                    {
+                                        data.map((data)=>
+                                            <tr key={data.id}>
+                                                <td>{data.name}</td>
+                                                <td>{data.email}</td>
+                                                <td>--</td>
+                                                <td>{data.department}</td>
+                                                <td>--</td>
+                                                <td>
+                                                    <button type="submit" className="btn btn-outline-success btn-sm" style={{marginRight:'10px'}}>
+                                                        <i class="fas fa-edit"></i>
+                                                    </button>
+                                                    <button type="submit" className="btn btn-outline-danger btn-sm">
+                                                        <i class="fas fa-user-times"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        )
+                                    }
+                                            
+                                        
                                     </tbody>
                                 </table>
                             </div>

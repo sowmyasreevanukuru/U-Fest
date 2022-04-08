@@ -10,7 +10,8 @@ const auth = require('../../middleware/auth');
 // @route   GET api/users
 // @desc    Register route
 // @access  Public
-router.get("/all", auth, async (req, res) => {
+//router.get("/all", auth, async (req, res) => {
+router.get("/all", async (req, res) => {
     User.find((err, User) => {
       if (err) {
         return res.json({ err: err });
