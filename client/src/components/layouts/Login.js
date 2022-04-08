@@ -1,6 +1,62 @@
-import React from 'react'
-
+import React, { useState } from 'react'
+import axios from 'axios';
 export const Login = () => {
+  const[formData,setFormData] = useState({
+    email: "",
+    password: ""
+  });
+  const {
+    email,
+    password
+  } = formData;
+
+  const onChange = (e) =>
+    setFormData({...formData, [e.target.name]:e.target.value});
+
+  let save = async (e) => {
+    e.preventDefault();
+    const newuser = {
+      email,
+      password
+    };
+    console.log(save);
+    try{
+      
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      const body = JSON.stringify(newuser);
+      console.log(body);
+      const res = await axios.post(
+        "api/auth",
+        body,
+        config
+      );
+      
+      if(res.status === 200) {
+        if(res.data.user.role==="Coordinator")
+        {
+          window.location.href="../Admin/Navbar";
+        }
+        else if(res.data.user.role==="Admin")
+        {
+          window.location.href="/../Admin/Navbar";
+        }
+       
+      }
+
+      console.log(res);
+      //swal("Registered!", "Registered successfully!", "success");
+      //admin- sowmyasreevanukuru@gmail,com password -sowmya123
+      //coordinator - 
+    
+    }catch(err){
+      console.log(err.response.data);
+    }
+  }
+
   return (
     <div>
     <div className="container shadow my-5">
@@ -11,7 +67,10 @@ export const Login = () => {
           </div>
           <div className="col-md-6 p-5">
             <h1 className="display-6 fw-bolder mb-5">LOGIN</h1>
-            <form>
+            <form action="../../../../routes/api/auth" 
+                  method='post'
+                  onSubmit={save}      
+            >
               <div className="mb-3">
                 <label htmlFor="exampleInputEmail1" className="form-label">
                   Email address
@@ -22,6 +81,8 @@ export const Login = () => {
                   id="exampleInputEmail1"
                   aria-describedby="emailHelp"
                   name="email"
+                  value={email}
+                  onChange={(e) => onChange(e)}
                 />
                 
               </div>
@@ -34,6 +95,8 @@ export const Login = () => {
                   className="form-control"
                   id="exampleInputPassword1"
                   name="password"
+                  value={password}
+                  onChange={(e) => onChange(e)}
                 />
               </div>
               <div className="mb-3 form-check">

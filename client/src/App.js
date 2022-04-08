@@ -1,30 +1,31 @@
 import React,{Fragment} from 'react';
 import {BrowserRouter as Router,Route, Routes} from 'react-router-dom';
-import Navbar from './components/layouts/Navbar';
-import Footer from './components/layouts/Footer';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.min.css';
 //import '../node_modules/bootstrap/dist/css/bootstap.min.css';
 //import '../node_modules/font-awesome/css/font-awesome.min.css';
 import './App.css';
-import Login from './components/layouts/Login';
-import Home from './components/layouts/Home';
-import Event from './components/layouts/Event';
-import Register from './components/layouts/Register';
-
+import Navbar_Admin from './components/layouts/Navbar_Admin';
+import Dashboard_Admin from './components/layouts/Dashboard_Admin';
+import Coordinators_Admin from './components/layouts/Coordinators_Admin';
+// import Login from './components/layouts/Login';
+// import Home from './components/layouts/Home';
+// import Event from './components/layouts/Event';
+// import Register from './components/layouts/Register';
+// import Navbar from './components/layouts/Navbar';
+// import Footer from './components/layouts/Footer';
 const App = () => (
   <Router>
         <Fragment>
-          <Navbar/> 
-          <section className="container">
+        
+          <Navbar_Admin/>
             <Routes>
-              <Route exact path="/Home" element={<Home/>}/>
-              <Route exact path="/Login" element={<Login/>}/>
-              <Route exact path="/Event" element={<Event/>}/>
-              <Route exact path="/Register" element={<Register/>}/>
+              <Route exact path="/Dashboard_Admin" element={<Dashboard_Admin/>}/>
+              <Route exact path="/Coordinators_Admin" element={<Coordinators_Admin/>}/>
+              
             </Routes>
-          </section>
-          <Footer/>
+          
         </Fragment>
  </Router>
 );

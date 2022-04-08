@@ -13,7 +13,8 @@ const jwt = require('jsonwebtoken');
 router.get('/',auth,async (req,res) => {
     try{
         const user = await User.findById(req.user.id).select('-password');
-        res.json(user);
+        console.log(user);
+        res.json({user});
     }catch(err){
         console.error(err.message);
         res.status(500).send('Server Error');
@@ -23,10 +24,7 @@ router.get('/',auth,async (req,res) => {
 // @route   POST api/auth
 // @desc    Authenticate user and get token
 // @access  Public
-router.post('/',[
-    check('email','Email is required').isEmail(),
-    check('password','Password is required').exists()
-],
+router.post('/',
 async (req,res) => {
     const errors = validationResult(req);
     if(!errors.isEmpty())
@@ -34,18 +32,21 @@ async (req,res) => {
         return res.status(400).json({errors: errors.array()});
     }
 
-    
-    const{email,password} = req.body;
+    let user_login=new User({
+        email:req.body.email,
+        password:req.body.password,
+        role:req.body.role,
+    });
     try{
 
-        let user = await User.findOne({email});
+        let user = await User.findOne({email : req.body.email});
 
         //check if user exists 
         if(!user){
            return res.status(400).json({errors: [{msg:'Invalid Credentials '}]});
         }
         
-        const isMatch = await bcrypt.compare(password,user.password);
+        const isMatch = await bcrypt.compare(req.body.password,user.password);
         if(!isMatch){
             return res
             .status(400) 
@@ -53,17 +54,20 @@ async (req,res) => {
         }
 
         const payload = {
-            user: {
-                id: user.id
+            user_login:{
+                id: user.id,
+                role:user.role,
             }
         };
+        console.log(user.id);
         jwt.sign(
             payload, 
             config.get('jwtSecret'),
             {expiresIn:360000},
             (err, token) => {
                 if(err) throw err;
-                res.json({ token });
+                res.json({ token,user });
+                
             }
         ); 
 

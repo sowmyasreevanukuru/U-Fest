@@ -12,6 +12,7 @@
   "author": "Sowmya and Neshi",
   "license": "MIT",
   "dependencies": {
+    "@material-ui/core": "^4.12.4",
     "axios": "^0.26.1",
     "bcryptjs": "^2.4.3",
     "bootstrap": "^5.1.3",

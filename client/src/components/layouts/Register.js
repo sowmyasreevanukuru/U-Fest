@@ -67,7 +67,7 @@ export const Register = () => {
                         <td>
                             <div className='mb-4'>
                             <select class="form-select" name="department" value={department} id="event"  placeholder='Select department'
-                            onChange={(e) => onChange(e)}>
+                            onChange={(e) => onChange(e)} required>
                                 <option selected disabled value="">--select department--</option>
                                 <option value="BMIIT">BMIIT</option>
                                 <option value="CGPIT">CGPIT</option>
@@ -90,7 +90,7 @@ export const Register = () => {
                               placeholder="Enter full name" 
                               value={name}
                               onChange = {(e) => onChange(e)}
-                              />
+                              required/>
                               <label for="name">Full Name</label>
                             </div>
                           </td>
@@ -103,7 +103,7 @@ export const Register = () => {
                               name='email'
                               value={email}
                               onChange={(e) => onChange(e)}
-                              />
+                              required/>
                               <label for="email">Email</label>
                             </div>
                           </td>
@@ -116,7 +116,7 @@ export const Register = () => {
                                 value={enro}
                                 name = "enro"
                                 onChange={(e) => onChange(e)}
-                                />
+                                required/>
                                 <label for="enro">Enrollment</label>
                               </div>
                           </td>
@@ -127,7 +127,7 @@ export const Register = () => {
                               placeholder="Enter contact" 
                               name='contact'
                               value={contact}
-                              onChange={(e) => onChange(e)}
+                              onChange={(e) => onChange(e)} required
                               />
                               <label for="contact">Contact</label>
                             </div>

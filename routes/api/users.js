@@ -5,16 +5,29 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('config');
 const User = require('../../models/User');
+const auth = require('../../middleware/auth');
+
+// @route   GET api/users
+// @desc    Register route
+// @access  Public
+router.get("/all", auth, async (req, res) => {
+    User.find((err, User) => {
+      if (err) {
+        return res.json({ err: err });
+      } else if (User == null) {
+        return res.json({ err: "no profile avalible" });
+      } else {
+        return res.json({ data: User });
+      }
+    });
+  });
+  
+
 
 // @route   POST api/users
 // @desc    Register route
 // @access  Public
-router.post('/',[
-    check('name','Please provide name').not().isEmpty(),
-    check('email','Please provide valid email address').isEmail(),
-    check('password','Enter a password with minimum 6 characters').isLength({min: 6}),
-    check('contact', 'Provide valid contact number').matches(RegExp("^[6-9]\\d{9}$"))
-],
+router.post('/',
 async (req,res) => {
     const errors = validationResult(req);
     if(!errors.isEmpty())
@@ -22,30 +35,25 @@ async (req,res) => {
         return res.status(400).json({errors: errors.array()});
     }
 
-    
-    const{name,email,password,contact,department} = req.body;
+    const salt = await bcrypt.genSalt(10);
+    let user = new User ({
+        name:req.body.name,
+        email:req.body.email,
+        password: await bcrypt.hash(req.body.password,salt),
+        department:req.body.department
+    });
+    //const{name,email,password,department} = req.body;
     try{
-
-        let user = await User.findOne({email});
+        console.log(user);
+        let c = await User.findOne({email:req.body.email});
 
         //check if user exists 
-        if(user){
-           return res.status(400).json({errors: [{msg:'User already exists'}]});
-        }
-        user = new User({
-            name,
-            email,
-            password,
-            contact,
-            department
-        });
-
-        //encrypt using bcrypt
-        const salt = await bcrypt.genSalt(10);
-        user.password = await bcrypt.hash(password,salt);
+        if(c){
+            return res.status(400).json({errors: [{msg:'User already exists'}]});
+         }
 
         //save user
-        await user.save();
+        user.save();
 
         const payload = {
             user: {
