@@ -30,5 +30,13 @@
   "devDependencies": {
     "concurrently": "^7.0.0",
     "nodemon": "^2.0.15"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sowmyasreevanukuru/U-Fest.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sowmyasreevanukuru/U-Fest/issues"
+  },
+  "homepage": "https://github.com/sowmyasreevanukuru/U-Fest#readme"
 }
