@@ -20,7 +20,6 @@ exports.getBuses= async (req,res,next)=>{
     } catch (err) {
      next(new ErrorResponse(`No event available`,401));
     }
-    
  }
 
  // @desc    Get single bus 

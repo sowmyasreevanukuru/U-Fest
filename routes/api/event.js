@@ -37,8 +37,6 @@ async (req,res) => {
             eventdesc,
             rules
         });
-
-       
         //save user
         await event.save();
 

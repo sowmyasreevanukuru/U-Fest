@@ -12,6 +12,7 @@
   "author": "Sowmya and Neshi",
   "license": "MIT",
   "dependencies": {
+    "@material-ui/core": "^4.12.4",
     "axios": "^0.26.1",
     "bcryptjs": "^2.4.3",
     "bootstrap": "^5.1.3",
@@ -25,6 +26,7 @@
     "mongoose": "^6.2.4",
     "normalize-url": "^7.0.3",
     "react-bootstrap": "^2.2.1",
+    "react-bootstrap-sweetalert": "^5.2.0",
     "request": "^2.88.2"
   },
   "devDependencies": {

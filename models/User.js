@@ -19,9 +19,8 @@ const UserSchema = new mongoose.Schema({
         required: true
     },
     contact:{
-        unique:true,
+       unique:true,
         type: String,
-        required: true,
         validate(value){
             if(value.length !=10)
             {
@@ -31,7 +30,7 @@ const UserSchema = new mongoose.Schema({
     },
     role:{
         type: String,
-        default:'Coordinator' 
+        default:'C' 
     }
 });
 
