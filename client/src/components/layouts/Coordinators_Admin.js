@@ -1,9 +1,9 @@
 import React,{useState,useEffect} from 'react'
 import axios from 'axios';
-import { Table } from 'react-bootstrap';
 
 
 export const Coordinators_Admin = () => {
+    //api call for viewing all users
     const [data,setData] = useState([]);
     useEffect(async()=>{
         let result = await axios.get("api/users/all");

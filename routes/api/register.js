@@ -5,6 +5,25 @@ const jwt = require('jsonwebtoken');
 const config = require('config');
 const User = require('../../models/Register');
 
+// @route   GET api/register/all
+// @desc    Register teams
+// @access  Public
+router.get("/all", async (req, res) => {
+    User.find((err, User) => {
+      if (err) {
+        return res.json({ err: err });
+      } else if (User == null) {
+        return res.json({ err: "no registrations available" });
+      } else {
+        return res.json({ data: User });
+      }
+    });
+  });
+  
+
+
+
+
 // @route   POST api/register
 // @desc    Register teams
 // @access  Public
