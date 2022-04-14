@@ -6,6 +6,47 @@ const jwt = require('jsonwebtoken');
 const config = require('config');
 const Event = require('../../models/Event');
 
+// @route   GET api/event/all
+// @desc    get all events route
+// @access  Private
+    router.get("/all", async (req, res) => {
+        Event.find((err, User) => {
+          if (err) {
+            return res.json({ err: err });
+          } else if (User == null) {
+            return res.json({ err: "no events avalible" });
+          } else {
+            return res.json({ data: User });
+          }
+        });
+      });
+      
+// @route   POST api/event/update
+// @desc    update event
+// @access  Private
+router.post("/update", [
+    check("eventname", "Event name required").not().isEmpty()
+  ],async (req, res)=>{
+    let status = false;
+    const errors = validationResult(req);
+    if(!errors.isEmpty()){
+        return res.status(400).json({errors: errors.array()})
+    }
+    let event = await Event.findOne({ _id:req.body.id });
+      if (!event) {
+        return res.status(400).json({ errors: [{ msg: "Event does not exists" }] });
+      }
+    try {
+        await Event.findByIdAndUpdate({_id: req.body.id}, {eventname: req.body.name});
+        status = true;
+        res.json({status, msg: "Event name updated!"});
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).json({msg: "Server Error"});
+    }
+  });
+
+
 // @route   POST api/event
 // @desc    Register route
 // @access  Public
@@ -14,8 +55,6 @@ router.post('/',[
     check('coordinatorname','Please provide coordinator name valid ').not().isEmpty(),
     check('venue','Please provide venue').not().isEmpty(),
     check('noofparticipants', 'Please provide no of participants').not().isEmpty(),
-    check('eventdesc','Please provide event description').not().isEmpty(),
-    check('rules','Please provide rules').not().isEmpty(),
 ],
 async (req,res) => {
     const errors = validationResult(req);
