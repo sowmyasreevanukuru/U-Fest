@@ -19,36 +19,43 @@ async (req,res) => {
         return res.status(400).json({errors: errors.array()});
     }
 
-    let e=new Event({
+    let events=new Event({
         eventname:req.body.eventname,
         coordinatorname:req.body.coordinatorname,
-        venue:req.body.venue,
+        venue:req.body.venue
     });
     try{
 
-        let Event = await Event.findOne({eventname : req.body.eventname});
+        let e = await Event.findOne({eventname : req.body.eventname});
 
         //check if user exists 
-        if(!Event){
-           return res.status(400).json({errors: [{msg:'No Event '}]});
+        if(!e){
+           return res.status(400).json({errors: [{msg:'Invalid Credentials '}]});
         }
         
+        const isMatch = await bcrypt.compare(req.body.eventname,e.eventname);
+        if(!isMatch){
+            return res
+            .status(400) 
+            .json({errors: [{msg: 'Invalid Credentials'}]});
+        }
+
         const payload = {
-            e:{
-                id: Event.id,
-                eventname:Event.eventname,
-                coordinatorname:Event.coordinatorname,
-                venue:Event.venue,
+            events:{
+                id: e.id,
+                eventname:e.eventname,
+                coordinatorname:e.coordinatorname,
+                venue:e.venue
             }
         };
-        console.log(Event.id);
+        console.log(e.id);
         jwt.sign(
             payload, 
             config.get('jwtSecret'),
             {expiresIn:360000},
             (err, token) => {
                 if(err) throw err;
-                res.json({ token,Event });
+                res.json({ token,e });
                 
             }
         ); 
@@ -57,7 +64,7 @@ async (req,res) => {
         console.error(err.message);
         res.status(500).send('Server Error');
     }
-  
+
 }); 
 
 module.exports = router;
