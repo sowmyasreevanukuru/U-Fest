@@ -1,33 +1,72 @@
-import React,{Fragment} from 'react';
-import {BrowserRouter as Router,Route, Routes} from 'react-router-dom';
-
+//import React,{Fragment} from 'react';
+//import {BrowserRouter as Router,Route, Routes} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.min.css';
 //import '../node_modules/bootstrap/dist/css/bootstap.min.css';
 //import '../node_modules/font-awesome/css/font-awesome.min.css';
 import './App.css';
-import Navbar_Admin from './components/layouts/Navbar_Admin';
-import Dashboard_Admin from './components/layouts/Dashboard_Admin';
-import Coordinators_Admin from './components/layouts/Coordinators_Admin';
+//import Navbar_Admin from './components/layouts/Navbar_Admin';
+//import Dashboard_Admin from './components/layouts/Dashboard_Admin';
+//import Coordinators_Admin from './components/layouts/Coordinators_Admin';
 // import Login from './components/layouts/Login';
 // import Home from './components/layouts/Home';
 // import Event from './components/layouts/Event';
 // import Register from './components/layouts/Register';
 // import Navbar from './components/layouts/Navbar';
 // import Footer from './components/layouts/Footer';
-const App = () => (
-  <Router>
-        <Fragment>
-        
-          <Navbar_Admin/>
-            <Routes>
-              <Route exact path="/Dashboard_Admin" element={<Dashboard_Admin/>}/>
-              <Route exact path="/Coordinators_Admin" element={<Coordinators_Admin/>}/>
-              
-            </Routes>
-          
-        </Fragment>
- </Router>
-);
+// //Redux
+// import { Provider } from 'react-redux';
+// import store from './store';
 
+import React from 'react';
+import {Routes,Route} from 'react-router-dom';
+import Frontend from './components/main/Frontend';
+import Backend from './components/admin/Backend';
+import Backend_C from './components/coordinator/Backend_C';
+import Home from './components/Home';
+import Admin from './components/Admin';
+import Error_404 from './components/Error_404';
+import Login from './components/Login';
+import Event from './components/Event';
+import Register from './components/Register';
+import Coordinators_Admin from './components/Coordinators_Admin';
+import Coordinator from './components/Coordinator';
+import VerifyTeams_Coordinator from './components/VerifyTeams_Coordinator';
+import Departments_Admin from './components/Departments_Admin';
+import Events_Admin from './components/Events_Admin';
+import Profile_Admin from './components/Profile_Admin';
+import Schedule from './components/Schedule';
+
+function App(props) { 
+  return(
+    <div className='App'>
+      <Routes>
+        <Route path='/' element={<Frontend/>}>
+          <Route index element={<Home/>}/>
+          <Route path='/Event' element={<Event/>}/>
+          <Route path='/Login' element={<Login/>}/>
+          <Route path='/Register' element={<Register/>}/>
+          <Route path='/Schedule' element={<Schedule/>}/>
+        </Route>
+        
+        <Route path='/Admin' element={<Backend/>}>
+          <Route index element={<Admin/>}/>
+          <Route path='Coordinators_Admin' element={<Coordinators_Admin/>}/>
+          <Route path='Departments_Admin' element={<Departments_Admin/>}/>
+          <Route path='Events_Admin' element={<Events_Admin/>}/>
+          <Route path='Profile_Admin' element={<Profile_Admin/>}/>
+          
+        </Route>
+
+        <Route path='/Coordinator' element={<Backend_C/>}>
+          <Route index element={<Coordinator/>}/>
+          <Route path='VerifyTeams_Coordinator' element={<VerifyTeams_Coordinator/>}/>
+          
+        </Route>
+        <Route path="*" element={<Error_404/>}/>
+      </Routes>
+       
+    </div>
+  )
+}
 export default App;

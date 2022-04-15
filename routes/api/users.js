@@ -7,7 +7,7 @@ const config = require('config');
 const User = require('../../models/User');
 const auth = require('../../middleware/auth');
 
-// @route   GET api/users
+// @route   GET api/users/all
 // @desc    Register route
 // @access  Public
 //router.get("/all", auth, async (req, res) => {
@@ -77,5 +77,8 @@ async (req,res) => {
     }
    // res.send('Co-ordinator Registered!');
 }); 
+
+
+
 
 module.exports = router;

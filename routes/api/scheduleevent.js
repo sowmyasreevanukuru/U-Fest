@@ -8,7 +8,6 @@ const config = require('config');
 const jwt = require('jsonwebtoken');
 
 
-
 // @route   POST api/auth
 // @desc    Authenticate user and get token
 // @access  Public

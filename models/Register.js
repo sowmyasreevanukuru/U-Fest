@@ -19,6 +19,10 @@ const RegisterSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    eventname:{
+        type:String,
+        required:true
+    },
     contact:{
         unique:true,
         type: String,

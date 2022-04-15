@@ -19,11 +19,17 @@ const EventSchema = new mongoose.Schema({
     },
     eventdesc:{
         type: String,
-        required: true
+        
     },
     rules:{
         type: String,
-        required: true
+        
+    },
+    email:{
+        type:String
+    },
+    contact:{
+        type:String
     }
 
 });
