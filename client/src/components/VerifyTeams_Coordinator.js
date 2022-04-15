@@ -31,6 +31,7 @@ function VerifyTeams_Coordinator() {
                                         <th>Email</th>
                                         <th>Contact</th>
                                         <th>Department</th>
+                                        <th>Event</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -42,6 +43,7 @@ function VerifyTeams_Coordinator() {
                                             <td>{data.email}</td>
                                             <td>{data.contact}</td>
                                             <td>{data.department}</td>
+                                            <td>{data.eventname}</td>
                                             <td>
                                                 <button type="submit" className="btn btn-outline-success btn-sm" style={{marginRight:'10px'}}>
                                                 <i class="fas fa-check"></i>

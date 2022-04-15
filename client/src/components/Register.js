@@ -1,12 +1,30 @@
-import React, { useState } from 'react'
+import React,{useState,useEffect} from 'react'
 import axios from 'axios';
 
 function Register() {
+   //to get all departments
+   const [dept_data,setdept] = useState([]);
+   useEffect(async()=>{
+       let dept_result = await axios.get("/api/department/all");
+       setdept(dept_result.data.data)
+   },[])
+   console.warn("dept_result",dept_data)
+
+  //to get all departments
+   const [event_data,setevent] = useState([]);
+   useEffect(async()=>{
+       let event_result = await axios.get("/api/event/all");
+       setevent(event_result.data.data)
+   },[])
+   console.warn("event_result",event_data)
+
+
     const[formData,setFormData] = useState({
         name: "",
         enro: "",
         email: "",
         department: "",
+        eventname:"",
         contact: ""
       });
       const {
@@ -14,6 +32,7 @@ function Register() {
         enro,
         email,
         department,
+        eventname,
         contact
       } = formData;
     
@@ -27,6 +46,7 @@ function Register() {
           enro,
           email,
           department,
+          eventname,
           contact
         };
         console.log(save);
@@ -65,12 +85,34 @@ function Register() {
                     <tr>
                         <td>
                             <div className='mb-4'>
-                            <select class="form-select" name="department" value={department} id="event"  placeholder='Select department'
-                            onChange={(e) => onChange(e)} required>
-                                <option selected disabled value="">--select department--</option>
-                                <option value="BMIIT">BMIIT</option>
-                                <option value="CGPIT">CGPIT</option>
-                              </select>
+                            <select class="form-select" name="eventname" id="eventname" placeholder='Select event'
+                                    value={eventname}
+                                    onChange={(e) => onChange(e)}
+                                    required>
+                                        <option selected disabled value="">--select eventname--</option>
+                                        {
+                                            event_data.map((event_data)=>
+                                            <option key="{event_data.eventname}">{event_data.eventname}</option>
+                                            )
+                                        }
+                                    </select>
+                            </div>
+                        </td>
+                        <td>
+                        
+                            <div className='mb-4'>
+                            <select class="form-select" name="department" id="department" placeholder='Select department'
+                                    value={department}
+                                    onChange={(e) => onChange(e)}
+                                    
+                                    required>
+                                        <option selected disabled value="">--select department--</option>
+                                        {
+                                            dept_data.map((dept_data)=>
+                                            <option key="{dept_data.name}">{dept_data.name}</option>
+                                            )
+                                        }
+                                    </select>
                             </div>
                         </td>
                     </tr>
@@ -89,6 +131,7 @@ function Register() {
                               placeholder="Enter full name" 
                               value={name}
                               onChange = {(e) => onChange(e)}
+                              pattern="[A-Za-z ]{1,}"
                               required/>
                               <label for="name">Full Name</label>
                             </div>
@@ -102,6 +145,7 @@ function Register() {
                               name='email'
                               value={email}
                               onChange={(e) => onChange(e)}
+                              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2, 4}$"
                               required/>
                               <label for="email">Email</label>
                             </div>
@@ -115,6 +159,7 @@ function Register() {
                                 value={enro}
                                 name = "enro"
                                 onChange={(e) => onChange(e)}
+                                pattern="^[0-9]{15,15}$"
                                 required/>
                                 <label for="enro">Enrollment</label>
                               </div>
@@ -126,6 +171,7 @@ function Register() {
                               placeholder="Enter contact" 
                               name='contact'
                               value={contact}
+                              pattern="[6789][0-9]{9}"
                               onChange={(e) => onChange(e)} required
                               />
                               <label for="contact">Contact</label>

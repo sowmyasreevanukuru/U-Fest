@@ -1,6 +1,6 @@
 import React from 'react'
 import {NavLink} from 'react-router-dom'
-import Event from './layouts/Event'
+import Event from '../components/Event'
 function Home(props) {
   return (
     <div>

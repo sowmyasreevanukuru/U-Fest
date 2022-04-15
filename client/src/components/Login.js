@@ -42,17 +42,16 @@ function Login() {
           );
           
           if(res.status === 200) {
+            
+            console.log(localStorage.getItem("email"));
             if(res.data.user.role==="C")
             {
-              
-            //   localStorage.setItem("token",res.data.token);
-            //  localStorage.setItem("role",res.data.role);
               window.location.href="./Coordinator";
             }
             else if(res.data.user.role==="A")
             {
-          //     localStorage.setItem("token",res.data.token);
-          // localStorage.setItem("role",res.data.role);
+              
+              localStorage.setItem("email",email);
               window.location.href="./Admin";
             }
             else
@@ -69,6 +68,7 @@ function Login() {
         
         }catch(err){
           console.log(err.response.data);
+          alert("Invalid credentials")
         }
       }
   return (

@@ -24,6 +24,12 @@ const EventSchema = new mongoose.Schema({
     rules:{
         type: String,
         
+    },
+    email:{
+        type:String
+    },
+    contact:{
+        type:String
     }
 
 });

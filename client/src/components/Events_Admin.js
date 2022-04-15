@@ -2,7 +2,7 @@ import React,{useState,useEffect} from 'react'
 import axios from 'axios';
 
 function Events_Admin() {
-    //api call for viewing all users
+    //api call for viewing all event
     const [data,setData] = useState([]);
     useEffect(async()=>{
         let result = await axios.get("/api/event/all");
@@ -90,6 +90,7 @@ function Events_Admin() {
                                 placeholder="Enter Event name" 
                                 value={eventname}
                                 onChange={(e) => onChange(e)}
+                                pattern="[A-Za-z ]{1,}"
                                 required/>
                             </td>
                             <td>
@@ -119,10 +120,12 @@ function Events_Admin() {
                                 value={coordinatorname}
                                 onChange={(e) => onChange(e)}
                                 required>
-                                    <option selected disabled value="">--select Coordinator--</option>
+                                    <option selected disabled value="">--Select Coordinator--</option>
                                     {
                                         cr_data.map((cr_data)=>
-                                        <option value="{cr_data.name}">{cr_data.name}</option>
+                                    
+                                        <option key="{cr_data.name}">{cr_data.name}</option>
+                                        
                                         )
                                     }
                                 </select>
@@ -148,9 +151,7 @@ function Events_Admin() {
                             <tr>
                                 <th>Name</th>
                                 <th>Coordinator</th>
-                                <th>Coordinator email</th>
-                                <th>Coordinator contact</th>
-                                <th>Department</th>
+                                <th>Event rules</th>
                                 <th>Venue</th>
                                 <th>No of participants</th>
                                 <th>Action</th>
@@ -162,9 +163,7 @@ function Events_Admin() {
                                 <tr key={data.id}>
                                     <td>{data.eventname}</td>
                                     <td>{data.coordinatorname}</td>
-                                    <td>--</td>
-                                    <td>--</td>
-                                    <td>--</td>
+                                    <td>{data.rules}</td>
                                     <td>{data.venue}</td>
                                     <td>{data.noofparticipants}</td>
                                     <td>

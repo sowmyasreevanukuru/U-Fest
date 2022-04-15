@@ -34,6 +34,8 @@ import Coordinator from './components/Coordinator';
 import VerifyTeams_Coordinator from './components/VerifyTeams_Coordinator';
 import Departments_Admin from './components/Departments_Admin';
 import Events_Admin from './components/Events_Admin';
+import Profile_Admin from './components/Profile_Admin';
+import Schedule from './components/Schedule';
 
 function App(props) { 
   return(
@@ -44,6 +46,7 @@ function App(props) {
           <Route path='/Event' element={<Event/>}/>
           <Route path='/Login' element={<Login/>}/>
           <Route path='/Register' element={<Register/>}/>
+          <Route path='/Schedule' element={<Schedule/>}/>
         </Route>
         
         <Route path='/Admin' element={<Backend/>}>
@@ -51,7 +54,8 @@ function App(props) {
           <Route path='Coordinators_Admin' element={<Coordinators_Admin/>}/>
           <Route path='Departments_Admin' element={<Departments_Admin/>}/>
           <Route path='Events_Admin' element={<Events_Admin/>}/>
-            
+          <Route path='Profile_Admin' element={<Profile_Admin/>}/>
+          
         </Route>
 
         <Route path='/Coordinator' element={<Backend_C/>}>

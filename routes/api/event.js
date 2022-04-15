@@ -20,7 +20,22 @@ const Event = require('../../models/Event');
           }
         });
       });
-      
+ 
+// @route   GET api/event/cr
+// @desc    get  event according to user route
+// @access  Private
+router.get("/cr", async (req, res) => {
+  Event.find((err, User) => {
+    if (err) {
+      return res.json({ err: err });
+    } else if (User == null) {
+      return res.json({ err: "no events avalible" });
+    } else {
+      return res.json({ data: User });
+    }h
+  });
+});
+   
 // @route   POST api/event/update
 // @desc    update event
 // @access  Private
@@ -48,7 +63,7 @@ router.post("/update", [
 
 
 // @route   POST api/event
-// @desc    Register route
+// @desc    add event
 // @access  Public
 router.post('/',[
     check('eventname','Please provide event name').not().isEmpty(),
@@ -62,6 +77,12 @@ async (req,res) => {
     {
         return res.status(400).json({errors: errors.array()});
     }
+    let c = await Event.findOne({eventname:req.body.eventname});
+
+        //check if user exists 
+        if(c){
+            return res.status(400).json({errors: [{msg:'Event already exists'}]});
+         }
 
     const{eventname,coordinatorname,venue,noofparticipants,eventdesc,rules} = req.body;
     try{

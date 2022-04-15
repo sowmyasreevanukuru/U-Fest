@@ -7,7 +7,7 @@ const Department = require('../../models/Department');
 const auth = require('../../middleware/auth');
 
 // @route   GET api/departments/all
-// @desc    display all departments
+// @desc    display all departme
 // @access  Public
 //router.get("/all", auth, async (req, res) => {
 router.get("/all", async (req, res) => {
@@ -22,7 +22,7 @@ router.get("/all", async (req, res) => {
     });
   });
   
-//   // @route   PUT api/departments/update
+//   // @route   PUT api/departments/updatees
 //   // @desc    update existing department
 //   // @access  Private
 //   exports.updateCompany = asyncHandler(async (req, res, next) => {
@@ -44,7 +44,7 @@ router.get("/all", async (req, res) => {
 // });
 
 
-// @route   POST api/departments
+// @route   POST api/department/
 // @desc    Register route
 // @access  Public
 router.post('/',
@@ -93,4 +93,29 @@ async (req,res) => {
    // res.send('Co-ordinator Registered!');
 }); 
 
+// @route   POST api/departments/update
+// @desc    update department
+// // @access  Private
+// router.put("/update", auth, async (req, res) => {
+//   let dept = req.body.name;
+//     Department.find(async(err, dept) => {
+//       if (err) {
+//         return res.json({ err: err });
+//       } else if (Department == null) {
+//         return res.json({ err: "no department" });
+//       } else {
+//         let c = await Department.findOne({name: dept});
+//         //check if department exists 
+//         if(c){
+//             return res.status(400).json({errors: [{msg:'Department already exists'}]});
+//          }
+//          //let olddept = req.body.oldname;
+//          //await Department.findOneAndUpdate({name: olddept}, {name: dept})
+//          const olddept = { name: req.body.oldname };
+//          await Department.findOneAndUpdate(olddept, {name: dept})
+         
+//          res.status(200).json({msg: "Department updated successfully"})
+//       }
+//     });
+//   });
 module.exports = router;

@@ -21,9 +21,6 @@ router.get("/all", async (req, res) => {
   });
   
 
-
-
-
 // @route   POST api/register
 // @desc    Register teams
 // @access  Public
@@ -42,7 +39,7 @@ async (req,res) => {
     }
 
     
-    const{name,enro,email,department,contact} = req.body;
+    const{name,enro,email,department,eventname,contact} = req.body;
     try{
 
         let registerr = await User.findOne({email});
@@ -53,6 +50,7 @@ async (req,res) => {
                 enro,
                 email,
                 department,
+                eventname,
                 contact
         });
 

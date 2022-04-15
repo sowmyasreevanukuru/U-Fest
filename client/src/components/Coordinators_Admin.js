@@ -10,7 +10,7 @@ function Coordinators_Admin() {
     },[])
     console.warn("result",data)
 
-
+    //to get all departments
    const [dept_data,setdept] = useState([]);
    useEffect(async()=>{
        let dept_result = await axios.get("/api/department/all");
@@ -91,6 +91,7 @@ function Coordinators_Admin() {
                                     placeholder="Enter Cordinator name" 
                                     value={name}
                                     onChange={(e) => onChange(e)}
+                                    pattern="[A-Za-z ]{1,32}"
                                     required/>
                                 </td>
                                 <td>
@@ -101,6 +102,7 @@ function Coordinators_Admin() {
                                     name='email'
                                     value={email}
                                     onChange={(e) => onChange(e)}
+                                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2, 4}$"
                                     required/>
                                     
                                 </td>
@@ -112,6 +114,7 @@ function Coordinators_Admin() {
                                     name='password'
                                     value={password}
                                     onChange={(e) => onChange(e)}
+                                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                                     required/>
                                 </td>
                                 <td>
@@ -122,7 +125,7 @@ function Coordinators_Admin() {
                                         <option selected disabled value="">--select department--</option>
                                         {
                                             dept_data.map((dept_data)=>
-                                            <option value="{dept_data.name}">{dept_data.name}</option>
+                                            <option key="{dept_data.name}">{dept_data.name}</option>
                                             )
                                         }
                                     </select>

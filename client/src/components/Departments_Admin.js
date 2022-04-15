@@ -5,6 +5,7 @@ function Departments_Admin() {
         //api call for viewing all departments
         const [data,setData] = useState([]);
         const [Name,setName] = useState("");
+        let oldname = "";
         useEffect(async()=>{
             let result = await axios.get("/api/department/all");
             setData(result.data.data)
@@ -94,6 +95,7 @@ function Departments_Admin() {
                                     placeholder="Enter Department name" 
                                     value={name}
                                     onChange={(e) => onChange(e)}
+                                    pattern="[A-Za-z ]{1,}"
                                     required/>
                                 </td>
                                 
@@ -126,6 +128,7 @@ function Departments_Admin() {
                                     placeholder="Enter Department name" 
                                     value={Name}
                                     onChange={(e) => onChange(setName(e.target.value))}
+                                    pattern="[A-Za-z ]{1,}"
                                     required/>
                                 </td>
                                 
@@ -160,7 +163,7 @@ function Departments_Admin() {
                                         <tr key={data.id}>
                                             <td>{data.name}</td>
                                             <td>
-                                             <button type="button" id="edit" onClick={()=>{setShow(true);selectDept(data.name)}} className="btn btn-outline-success btn-sm"
+                                             <button type="button" id="edit" onClick={()=>{setShow(true);selectDept(data.name); oldname = data.name}} className="btn btn-outline-success btn-sm"
                                                     style={{marginRight:'10px'}}>
                                                         <i class="fas fa-edit"></i>
                                                 </button>

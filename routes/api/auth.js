@@ -56,10 +56,12 @@ async (req,res) => {
         const payload = {
             user_login:{
                 id: user.id,
+                email:user.email,
                 role:user.role,
             }
         };
         console.log(user.id);
+        console.log(user.email);
         jwt.sign(
             payload, 
             config.get('jwtSecret'),

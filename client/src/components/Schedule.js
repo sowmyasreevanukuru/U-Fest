@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Card, Row, Col, Container } from "react-bootstrap";
 
 
-function Event() {
+function Schedule() {
   
     //api call for viewing all event
     const [data,setData] = useState([]);
@@ -20,7 +20,7 @@ function Event() {
     <div className="container my-5 py-5">
       <div className="row">
         <div className="col-12">
-          <h1 className="fs-5 text-center mb-0">Events</h1>
+          <h1 className="fs-5 text-center mb-0">Schedule</h1>
           <hr className="w-25 mx-auto" />
         </div>
         { data.map((data)=>
@@ -49,4 +49,4 @@ function Event() {
   )
 }
 
-export default Event
+export default Schedule

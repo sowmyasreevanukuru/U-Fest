@@ -38,6 +38,12 @@ function Coordinator_sidenavbar() {
                     <div className="sb-nav-link-icon"><i className="fas fa-table"></i></div>
                     Results
                 </NavLink>
+
+                <div className="sb-sidenav-menu-heading">Your Account</div>
+                <NavLink className="nav-link" to="/">
+                    <div className="sb-nav-link-icon"><i className="fa fa-user me-2"></i></div>
+                    Profile
+                </NavLink>
             </div>
         </div>
         <div className="sb-sidenav-footer">
