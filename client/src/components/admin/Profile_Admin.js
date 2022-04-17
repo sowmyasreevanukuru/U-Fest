@@ -3,6 +3,12 @@ import axios from 'axios';
 import { Row } from 'react-bootstrap';
 
 function Profile_Admin() {
+  //let email = localStorage.getItem("email");
+    if(localStorage.getItem("email") === null)
+    {
+        window.location.href="./";
+        console.log(email+"hi")
+    }
   const [data, setData] = useState([]);
   //const [data2, setData2] = useState([]);
   useEffect(async () => {

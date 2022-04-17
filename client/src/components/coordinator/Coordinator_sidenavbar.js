@@ -40,7 +40,7 @@ function Coordinator_sidenavbar() {
                 </NavLink>
 
                 <div className="sb-sidenav-menu-heading">Your Account</div>
-                <NavLink className="nav-link" to="/">
+                <NavLink className="nav-link" to="/Coordinator/Profile_Coordinator">
                     <div className="sb-nav-link-icon"><i className="fa fa-user me-2"></i></div>
                     Profile
                 </NavLink>

@@ -1,7 +1,20 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import { NavLink } from 'react-router-dom'
 
-function Dashboard_Admin() {
+function Admin(props) {
+    let email = localStorage.getItem("email");
+    if(localStorage.getItem("email") === null)
+    {
+        window.location.href="./";
+    
+    }
+    // useEffect(async()=>{
+    //     if(localStorage.getItem('email') && localStorage.getItem('role')==='A')
+    //     {
+    //         console.log(localStorage.getItem('role'))
+    //         window.history.back();
+    //     }
+    // })
   return (
     <div className='sb-nav-fixed'>
     <div id='layoutSidenav'>
@@ -33,8 +46,8 @@ function Dashboard_Admin() {
     </main>
     </div>
 </div>
-</div>      
+</div>
   )
 }
 
-export default Dashboard_Admin
+export default Admin

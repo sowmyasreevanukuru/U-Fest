@@ -2,6 +2,11 @@ import React,{useState,useEffect} from 'react'
 import axios from 'axios';
 
 function Register() {
+ // let email = localStorage.getItem("email");
+    if(localStorage.getItem("email") !== null)
+    {
+        window.history.back();
+    }
    //to get all departments
    const [dept_data,setdept] = useState([]);
    useEffect(async()=>{
@@ -119,6 +124,7 @@ function Register() {
                         <tr>
                           <td>
                           <div className="form-floating mb-3"><p>Enter student details</p></div>
+                          <p>{}</p>
                           </td>
                         </tr>
                         <tr>

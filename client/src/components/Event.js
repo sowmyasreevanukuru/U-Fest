@@ -27,10 +27,11 @@ function Event() {
         <Row xs={1} md={8} className="g-4">
         {Array.from({ length: 1 }).map((_, idx) => (
           <Col>
-            <Card>
+            <Card className="text-center">
               <Card.Body>
                 <Card.Title>{data.eventname}</Card.Title>
-                <Card.Subtitle>{data.venue}</Card.Subtitle>
+                <Card.Subtitle>{data.venue}<hr/></Card.Subtitle>
+
                 <Card.Text>
                   Coordinator Name : {data.coordinatorname}<br/>
                   {data.rules}

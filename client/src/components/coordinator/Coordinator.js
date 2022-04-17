@@ -1,14 +1,11 @@
-import React,{useEffect} from 'react'
+import React from 'react'
 import { NavLink } from 'react-router-dom'
-
-function Admin(props) {
-    // useEffect(async()=>{
-    //     if(localStorage.getItem('email') && localStorage.getItem('role')==='A')
-    //     {
-    //         console.log(localStorage.getItem('role'))
-    //         window.history.back();
-    //     }
-    // })
+function Coordinator() {
+    if(localStorage.getItem("email") === null)
+    {
+        window.location.href="./";
+    
+    }
   return (
     <div className='sb-nav-fixed'>
     <div id='layoutSidenav'>
@@ -21,7 +18,7 @@ function Admin(props) {
             <div className="row">
                 <div className="col-xl-3 col-md-6">
                     <div className="card bg-primary text-white mb-4">
-                        <div className="card-body">Number of Departments</div>
+                        <div className="card-body">Number of teams</div>
                         <div className="card-footer d-flex align-items-center justify-content-between">
                             <div className='small text-white'>10</div>
                         </div>
@@ -29,7 +26,15 @@ function Admin(props) {
                 </div>
                 <div className="col-xl-3 col-md-6">
                     <div className="card bg-primary text-white mb-4">
-                        <div className="card-body">Number of Events</div>
+                        <div className="card-body">Teams verified</div>
+                        <div className="card-footer d-flex align-items-center justify-content-between">
+                            <div className='small text-white'>10</div>
+                        </div>
+                    </div>
+                </div>
+                <div className="col-xl-3 col-md-6">
+                    <div className="card bg-primary text-white mb-4">
+                        <div className="card-body">Teams to be verified</div>
                         <div className="card-footer d-flex align-items-center justify-content-between">
                             <div className='small text-white'>10</div>
                         </div>
@@ -44,4 +49,4 @@ function Admin(props) {
   )
 }
 
-export default Admin
+export default Coordinator

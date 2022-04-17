@@ -24,16 +24,14 @@ function Schedule() {
           <hr className="w-25 mx-auto" />
         </div>
         { data.map((data)=>
-        <Row xs={1} md={8} className="g-4">
+        <Row xs={1} md={7} className="g-4">
         {Array.from({ length: 1 }).map((_, idx) => (
           <Col>
-            <Card>
+            <Card className="text-center">
               <Card.Body>
                 <Card.Title>{data.eventname}</Card.Title>
                 <Card.Subtitle>{data.venue}</Card.Subtitle>
                 <Card.Text>
-                  Coordinator Name : {data.coordinatorname}<br/>
-                  {data.rules}
                 </Card.Text>
               </Card.Body>
             </Card>

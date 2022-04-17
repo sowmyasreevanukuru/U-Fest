@@ -1,7 +1,14 @@
 import React, { useState } from 'react'
 import axios from 'axios';
+import swal from 'sweetalert';
+import { NavLink } from 'react-bootstrap';
 
 function Login() {
+ // let email = localStorage.getItem("email");
+    if(localStorage.getItem("email") !== null)
+    {
+        window.history.back();
+    }
     // useEffect(()=>{
     //   if(localStorage.getItem('email')){
     //     window.history.back();
@@ -40,18 +47,20 @@ function Login() {
             body,
             config
           );
-          
+          console.log(res.data.user.name);
           if(res.status === 200) {
             
-            console.log(localStorage.getItem("email"));
             if(res.data.user.role==="C")
             {
+              localStorage.setItem("email",email);
+              localStorage.setItem("password",password);
               window.location.href="./Coordinator";
             }
             else if(res.data.user.role==="A")
             {
               
               localStorage.setItem("email",email);
+              localStorage.setItem("password",password);
               window.location.href="./Admin";
             }
             else
@@ -68,7 +77,13 @@ function Login() {
         
         }catch(err){
           console.log(err.response.data);
-          alert("Invalid credentials")
+         // alert("Invalid credentials")
+         swal({
+          title: "Invalid",
+          text: "Invalid Credentials!",
+          icon: "warning",
+          button: "OK",
+        });
         }
       }
   return (
@@ -96,6 +111,7 @@ function Login() {
                   name="email"
                   value={email}
                   onChange={(e) => onChange(e)}
+                  required
                 />
                 
               </div>
@@ -110,18 +126,12 @@ function Login() {
                   name="password"
                   value={password}
                   onChange={(e) => onChange(e)}
+                  required
                 />
               </div>
-              <div className="mb-3 form-check">
-                <input
-                  type="checkbox"
-                  className="form-check-input"
-                  id="exampleCheck1"
-                />
-                <label className="form-check-label" htmlFor="exampleCheck1">
-                  Remember me
-                </label>
-              </div>
+                <NavLink to="/">Forgot password</NavLink>
+                
+              
               <button type="submit" className="btn btn-primary w-100 mt-4 rounded-pill">
                 Login
               </button>

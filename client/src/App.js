@@ -24,18 +24,19 @@ import Frontend from './components/main/Frontend';
 import Backend from './components/admin/Backend';
 import Backend_C from './components/coordinator/Backend_C';
 import Home from './components/Home';
-import Admin from './components/Admin';
+import Admin from './components/admin/Admin';
 import Error_404 from './components/Error_404';
 import Login from './components/Login';
 import Event from './components/Event';
 import Register from './components/Register';
-import Coordinators_Admin from './components/Coordinators_Admin';
-import Coordinator from './components/Coordinator';
-import VerifyTeams_Coordinator from './components/VerifyTeams_Coordinator';
-import Departments_Admin from './components/Departments_Admin';
-import Events_Admin from './components/Events_Admin';
-import Profile_Admin from './components/Profile_Admin';
+import Coordinators_Admin from './components/admin/Coordinators_Admin';
+import Coordinator from './components/coordinator/Coordinator';
+import VerifyTeams_Coordinator from './components/coordinator/VerifyTeams_Coordinator';
+import Departments_Admin from './components/admin/Departments_Admin';
+import Events_Admin from './components/admin/Events_Admin';
+import Profile_Admin from './components/admin/Profile_Admin';
 import Schedule from './components/Schedule';
+import Profile_Coodinator from './components/coordinator/Profile_Coordinator';
 
 function App(props) { 
   return(
@@ -61,6 +62,7 @@ function App(props) {
         <Route path='/Coordinator' element={<Backend_C/>}>
           <Route index element={<Coordinator/>}/>
           <Route path='VerifyTeams_Coordinator' element={<VerifyTeams_Coordinator/>}/>
+          <Route path='Profile_Coordinator' element={<Profile_Coodinator/>}/>
           
         </Route>
         <Route path="*" element={<Error_404/>}/>

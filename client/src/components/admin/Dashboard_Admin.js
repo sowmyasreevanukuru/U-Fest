@@ -1,8 +1,13 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 
-
-export const Dashboard_Admin = () => {
+function Dashboard_Admin() {
+    let email = localStorage.getItem("email");
+    if(localStorage.getItem("email") === null)
+    {
+        window.location.href="./";
+        console.log(email+"hi")
+    }
   return (
     <div className='sb-nav-fixed'>
     <div id='layoutSidenav'>
@@ -34,7 +39,8 @@ export const Dashboard_Admin = () => {
     </main>
     </div>
 </div>
-</div>
+</div>      
   )
 }
+
 export default Dashboard_Admin

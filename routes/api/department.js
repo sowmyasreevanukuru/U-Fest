@@ -22,6 +22,20 @@ router.get("/all", async (req, res) => {
     });
   });
   
+router.delete('/delete:_id',async(req,res) => {
+  try {
+    const dept = await Department.findOne({_id: req.params.id });
+    if(!dept){
+        return res.status(400).json({ msg: "department not found"});
+    }
+    dept.deleteOne({_id:req.params.id})
+    res.json(dept);
+} catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+}
+ // Department.deleteOne({_id:new objectID(req.param.id)},)
+});
 //   // @route   PUT api/departments/updatees
 //   // @desc    update existing department
 //   // @access  Private
@@ -41,6 +55,19 @@ router.get("/all", async (req, res) => {
 //   }
 
 //   res.status(200).json({ success: true, data: company });
+// });
+
+// @route   POST api/department/delete
+// @desc    delete department
+// @access  Public
+// app.delete('api/deletedept/delete/:id', (req, res, next) => {
+//   departments.deleteOne({ _id: new objectID(req.params.id) }, (err, result) => {
+//       if(err)
+//       {
+//           throw err;
+//       }
+//       res.send(result);
+//   });
 // });
 
 
@@ -95,7 +122,7 @@ async (req,res) => {
 
 // @route   POST api/departments/update
 // @desc    update department
-// // @access  Private
+// @access  Private
 // router.put("/update", auth, async (req, res) => {
 //   let dept = req.body.name;
 //     Department.find(async(err, dept) => {

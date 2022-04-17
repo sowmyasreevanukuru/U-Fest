@@ -2,6 +2,13 @@ import React from 'react'
 import {NavLink} from 'react-router-dom'
 import Event from '../components/Event'
 function Home(props) {
+  let email = localStorage.getItem("email");
+    // if(localStorage.getItem("email") !== null)
+    // {
+    //     window.history.back();
+    // }
+  
+  localStorage.clear();
   return (
     <div>
     <section id="home">

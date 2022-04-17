@@ -1,7 +1,14 @@
 import React,{useState,useEffect} from 'react'
 import axios from 'axios';
+import swal from 'sweetalert';
 
 function Events_Admin() {
+    let email = localStorage.getItem("email");
+    if(localStorage.getItem("email") === null)
+    {
+        window.location.href="./";
+        console.log(email+"hi")
+    }
     //api call for viewing all event
     const [data,setData] = useState([]);
     useEffect(async()=>{
@@ -17,7 +24,7 @@ function Events_Admin() {
        setdept(cr_result.data.data)
    },[])
    console.warn("cr_result",cr_data)
-
+ 
     const[formData,setFormData] = useState({
         eventname:"",
         coordinatorname:"",
@@ -57,10 +64,20 @@ function Events_Admin() {
           config
         ); 
         //swal("Registered!", "Registered successfully!", "success");
-        alert("New Event added!")
-         
+        swal({
+            title: "Done",
+            text: "Coordinator added!",
+            icon: "success",
+            button: "OK",
+          });
       }catch(err){
         console.log(err.response.data);
+        swal({
+            title: "Invalid",
+            text: "Invalid entry",
+            icon: "warning",
+            button: "OK",
+          });
       }
     }
 
@@ -109,8 +126,8 @@ function Events_Admin() {
                                 id="noofparticipants" 
                                 type="number" 
                                 min={1} max={10}
-                                placeholder="Enter no ofparticipants"
-                                name='noofparticipants'
+                                placeholder="Number of participants"
+                                name='noofparticipants' style={{width:"210px"}}
                                 value={noofparticipants}
                                 onChange={(e) => onChange(e)}
                                 required/>

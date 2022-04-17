@@ -1,7 +1,17 @@
 import React,{useState,useEffect} from 'react'
 import axios from 'axios';
+import swal from 'sweetalert';
 
 function Coordinators_Admin() {
+    if(localStorage.getItem("email") === null)
+    {
+        window.location.href="./";
+    }
+    //let email = localStorage.getItem("email");
+    if(localStorage.getItem("email") === null)
+    {
+        window.location.href="./";
+    }
     //api call for viewing all users
     const [data,setData] = useState([]);
     useEffect(async()=>{
@@ -14,6 +24,7 @@ function Coordinators_Admin() {
    const [dept_data,setdept] = useState([]);
    useEffect(async()=>{
        let dept_result = await axios.get("/api/department/all");
+       
        setdept(dept_result.data.data)
    },[])
    console.warn("dept_result",dept_data)
@@ -57,10 +68,21 @@ function Coordinators_Admin() {
           config
         ); 
         //swal("Registered!", "Registered successfully!", "success");
-        alert("Coordinator Added!")
+        swal({
+            title: "Done",
+            text: "Coordinator added!",
+            icon: "success",
+            button: "OK",
+          });
          
       }catch(err){
         console.log(err.response.data);
+        swal({
+            title: "Invalid",
+            text: "user already exists",
+            icon: "warning",
+            button: "OK",
+          });
       }
     }
 
@@ -176,9 +198,7 @@ function Coordinators_Admin() {
                                             </td>
                                         </tr>
                                     )
-                                }
-                                        
-                                    
+                                }    
                                 </tbody>
                             </table>
                         </div>

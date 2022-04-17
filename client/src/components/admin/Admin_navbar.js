@@ -3,6 +3,7 @@ import Admin_sidenavbar from './Admin_sidenavbar'
 import {NavLink} from 'react-router-dom'
 
 function Admin_navbar() {
+    
   return (
     <div className='sb-nav-fixed'>
         <nav className="sb-topnav navbar navbar-expand navbar-dark bg-dark">    
@@ -13,6 +14,7 @@ function Admin_navbar() {
                     <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                         
                         <li><a className="dropdown-item" href="/">Logout</a></li>
+                    
                     </ul>
                 </li>
             </ul>

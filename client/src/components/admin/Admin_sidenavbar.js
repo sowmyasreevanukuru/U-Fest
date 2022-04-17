@@ -20,10 +20,7 @@ function Admin_sidenavbar() {
                     <div className="sb-nav-link-icon"><i className="fas fa-university"></i></div>
                     Events
                 </NavLink>
-                <NavLink className="nav-link" to="index.html">
-                    <div className="sb-nav-link-icon"><i className="fas fa-calendar-alt"></i></div>
-                    Schdeule
-                </NavLink>
+                
                 <NavLink className="nav-link" to="/Admin/Departments_Admin">
                     <div className="sb-nav-link-icon"><i className="fas fa-users"></i></div>
                     Departments

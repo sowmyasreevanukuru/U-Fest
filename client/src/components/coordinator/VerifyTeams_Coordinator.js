@@ -9,14 +9,18 @@ function VerifyTeams_Coordinator() {
             setData(result.data.data)
         },[])
         console.warn("result",data)
-    
+        if(localStorage.getItem("email") === null)
+        {
+            window.location.href="./";
+        
+        }
   return (
     <div className='sb-nav-fixed'>
     <div id='layoutSidenav'>
         <div id="layoutSidenav_content">
             <main>
                 <div className="container-fluid">
-                    <h3 className="mt-5">Verfy Registrations</h3>
+                    <h3 className="mt-5">Verify Registrations</h3>
                      <ol className="breadcrumb"></ol>
                     <hr/>
                     <div className="card mb-4">

@@ -1,7 +1,14 @@
 import React,{useState,useEffect} from 'react'
 import axios from 'axios';
+import swal from 'sweetalert';
 
 function Departments_Admin() {
+    let email = localStorage.getItem("email");
+    if(localStorage.getItem("email") === null)
+    {
+        window.location.href="./";
+        console.log(email+"hi")
+    }
         //api call for viewing all departments
         const [data,setData] = useState([]);
         const [Name,setName] = useState("");
@@ -42,17 +49,30 @@ function Departments_Admin() {
               config
             ); 
             //swal("Registered!", "Registered successfully!", "success");
-            if(res.status === 200)
-            {
-                alert("Department Added!")
-            }
-            else{
+            swal({
+                title: "Done",
+                text: "New department added!",
+                icon: "success",
+                button: "OK",
+              });
+            // if(res.status === 200)
+            // {
                 
-                alert("Department already exists")
-            }
+            // }
+            // else{
+                
+            //     alert("Department already exists")
+            // }
             console.log(res)
           }catch(err){
+            
             console.log(err.response.data);
+            swal({
+                title: "Invalid",
+                text: "Department already exists!",
+                icon: "warning",
+                button: "OK",
+              });
           }
         }
     const [show,setShow] = useState(false)
