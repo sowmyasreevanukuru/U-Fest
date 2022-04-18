@@ -10,22 +10,32 @@ const jwt = require('jsonwebtoken');
 // @route   GET api/auth   
 // @desc    get current logged in user
 // @access  Public
-router.get('/',auth,async (req,res) => {
+router.get('/',async (req,res) => {
     try{
-        const user = await User.findById(req.user.id).select('-password');
-        console.log(user);
-        res.json({user});
+        let data = await User.findOne({email : req.body.email});
+        console.log(data);
+        res.json({data});
     }catch(err){
         console.error(err.message);
         res.status(500).send('Server Error');
     }
 });
 
+//update status of coordinator
+router.put("/update",async(req,res) => {
+    try {
+      await User.findByIdAndUpdate({_id: req.body.id}, {status: req.body.status});
+      res.json({msg: "Status of coordinator changed"}); 
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).json({msg: "Server Error"});
+    }
+  });
+
 // @route   POST api/auth
 // @desc    Authenticate user and get token
 // @access  Public
-router.post('/',
-async (req,res) => {
+router.post('/', async (req,res) => {
     const errors = validationResult(req);
     if(!errors.isEmpty())
     {

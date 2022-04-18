@@ -11,8 +11,7 @@ function Departments_Admin() {
     }
         //api call for viewing all departments
         const [data,setData] = useState([]);
-        const [Name,setName] = useState("");
-        let oldname = "";
+        
         useEffect(async()=>{
             let result = await axios.get("/api/department/all");
             setData(result.data.data)
@@ -48,21 +47,12 @@ function Departments_Admin() {
               body,
               config
             ); 
-            //swal("Registered!", "Registered successfully!", "success");
             swal({
                 title: "Done",
                 text: "New department added!",
                 icon: "success",
                 button: "OK",
               });
-            // if(res.status === 200)
-            // {
-                
-            // }
-            // else{
-                
-            //     alert("Department already exists")
-            // }
             console.log(res)
           }catch(err){
             
@@ -76,17 +66,50 @@ function Departments_Admin() {
           }
         }
     const [show,setShow] = useState(false)
-    function selectDept(name)
+    const [Name,setName] = useState("");
+    const [Id,setID] = useState("");
+    
+        
+    function selectDept(name,id)
     {
-        console.warn(name)
-        console.warn("hi")
-       // setName(data[id].name)
+       console.warn(name)
        setName(name)
+       setID(id)
+       console.warn(id)
     }
-    function updateDept()
-    {
-        let item={name}
-        console.warn("item",item)
+    const handleUpdate = async(e) => {
+        e.preventDefault();
+      let newid = Id
+      let newname = Name
+      try{
+        const config = {
+          header:{
+            "Content-Type": "application/json"
+          }
+        }
+        const dept = { "id": newid, "name": newname };
+        const res = await axios.put("/api/department/update", dept, config);
+        console.log("updated!")
+        if(res.status === 200){
+        
+            swal({
+                title: "Done",
+                text: "Department updated!",
+                icon: "success",
+                button: "OK",
+              });
+        }
+      
+      }
+      catch(err){
+       console.log(err.response.data);
+       swal({
+        title: "Error",
+        text: "Error while updating",
+        icon: "warning",
+        button: "OK",
+      });
+      }
     }
   return (
     <div className='sb-nav-fixed'>
@@ -136,13 +159,13 @@ function Departments_Admin() {
                            <h5>Update Department</h5>
                         </div>
                         <div className="card-body">
-                        <form 
-                        method="post" >
+                        <form onSubmit={e => handleUpdate(e)}
+                        method="post">
                         <table>
                             <tr style={{borderSpacing:"0px 50px"}}>
                                 <td>
                                     <input className="form-control" 
-                                    id="name" 
+                                    id="newdeptname" 
                                     type="text" 
                                     name='name'
                                     placeholder="Enter Department name" 
@@ -150,10 +173,11 @@ function Departments_Admin() {
                                     onChange={(e) => onChange(setName(e.target.value))}
                                     pattern="[A-Za-z ]{1,}"
                                     required/>
+                                    <input type="hidden" value={Id}/>
                                 </td>
                                 
                                 <td>
-                                    <button type="submit" className="btn btn-primary" onClick={updateDept}>
+                                    <button type="submit" className="btn btn-primary">
                                     <i class="fas fa-plus" style={{marginRight:'10px'}}></i>
                                         Update Department
                                     </button>
@@ -183,12 +207,9 @@ function Departments_Admin() {
                                         <tr key={data.id}>
                                             <td>{data.name}</td>
                                             <td>
-                                             <button type="button" id="edit" onClick={()=>{setShow(true);selectDept(data.name); oldname = data.name}} className="btn btn-outline-success btn-sm"
+                                             <button type="button" id="edit" onClick={()=>{setShow(true);selectDept(data.name,data._id);}} className="btn btn-outline-success btn-sm"
                                                     style={{marginRight:'10px'}}>
                                                         <i class="fas fa-edit"></i>
-                                                </button>
-                                                <button type="submit" className="btn btn-outline-danger btn-sm">
-                                                    <i class="fas fa-times"></i>
                                                 </button>
                                             </td>
                                         </tr>

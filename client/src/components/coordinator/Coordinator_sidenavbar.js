@@ -16,7 +16,7 @@ function Coordinator_sidenavbar() {
                     <div className="sb-nav-link-icon"><i className="fas fa-id-card"></i></div>
                     Verify Teams
                 </NavLink>
-                <NavLink className="nav-link" to="index.html">
+                <NavLink className="nav-link" to="/Coordinator/EventDetails_Coordinator">
                     <div className="sb-nav-link-icon"><i className="fas fa-university"></i></div>
                     Event Details
                 </NavLink>

@@ -14,9 +14,13 @@ function Coordinators_Admin() {
     }
     //api call for viewing all users
     const [data,setData] = useState([]);
+    const [data2,setData2] = useState([]);
     useEffect(async()=>{
         let result = await axios.get("/api/users/all");
+        setData2(delete(result.data.data[0]))
+        console.warn("newdata",data2)
         setData(result.data.data)
+
     },[])
     console.warn("result",data)
 
@@ -78,14 +82,81 @@ function Coordinators_Admin() {
       }catch(err){
         console.log(err.response.data);
         swal({
-            title: "Invalid",
-            text: "user already exists",
+            title: "User already exists",
+            text: "",
             icon: "warning",
             button: "OK",
           });
       }
     }
+    const [status,setStatus] = useState("");
+    const [Id,setID] = useState("");
+   
+    function selectuser(id,status)
+    {
+       console.warn(id,status)
+       setStatus(status)
+       setID(id)
+    }
+    const handleUpdate = async(e) => {
+        e.preventDefault();
+      let newid = Id
+      let newstatus 
+      if(status === "Active")
+      {
+          newstatus = "Inactive";
+      }
+      else
+      {
+          newstatus = "Active"
+      }
+      console.warn(status);
+      try{
+        const config = {
+          header:{
+            "Content-Type": "application/json"
+          }
+        }
+        const user = { "id": newid, "status": newstatus };
+        const res = await axios.put("/api/auth/update", user, config);
+        console.log("updated!")
+        if(res.status === 200){
+        
+            // swal({
+            //     title: "Done",
+            //     text: "Status updated!",
+            //     icon: "success",
+            //     button: "OK",
+            //   });
+            swal({
+                title: "Are you sure?",
+                text: "Are you sure to change status this user?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+              })
+              .then((willDelete) => {
+                if (willDelete) {
+                  swal("Status updated!", {
+                    icon: "success",
+                  });
+                }
+              });
+        
+        }
+      
+      }
+      catch(err){
+       console.log(err.response.data);
+       swal({
+        title: "Error",
+        text: "Error while updating",
+        icon: "warning",
+        button: "OK",
+      });
 
+      }
+    }
   return (
     <div className='sb-nav-fixed'>
     <div id='layoutSidenav'>
@@ -140,7 +211,7 @@ function Coordinators_Admin() {
                                     required/>
                                 </td>
                                 <td>
-                                    <select class="form-select" name="department" id="department" placeholder='Select department'
+                                  <select class="form-select" name="department" id="department" placeholder='Select department'
                                     value={department}
                                     onChange={(e) => onChange(e)}
                                     required>
@@ -163,19 +234,21 @@ function Coordinators_Admin() {
                         </form>
                         </div>
                     </div>
+                    
                     <div className="card mb-4">
                         <div className="card-header">
                            <h5>Coordinator Details</h5>
                         </div>
                         <div className="card-body">
+                        <form onSubmit={e => handleUpdate(e)}
+                        method="post">
                             <table className='table table-hover'>
                                 <thead>
                                     <tr>
                                         <th>Name</th>
                                         <th>Email</th>
-                                        <th>Contact</th>
                                         <th>Department</th>
-                                        <th>Event</th>
+                                        <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -185,15 +258,11 @@ function Coordinators_Admin() {
                                         <tr key={data.id}>
                                             <td>{data.name}</td>
                                             <td>{data.email}</td>
-                                            <td>--</td>
                                             <td>{data.department}</td>
-                                            <td>--</td>
+                                            <td>{data.status}</td>
                                             <td>
-                                                <button type="submit" className="btn btn-outline-success btn-sm" style={{marginRight:'10px'}}>
-                                                    <i class="fas fa-edit"></i>
-                                                </button>
-                                                <button type="submit" className="btn btn-outline-danger btn-sm">
-                                                    <i class="fas fa-user-times"></i>
+                                                <button type="submit" className="btn btn-outline-success btn-sm" onClick={()=>{selectuser(data._id,data.status);}}  style={{marginRight:'10px'}}>
+                                                    <i class="fas fa-user-edit"></i>
                                                 </button>
                                             </td>
                                         </tr>
@@ -201,6 +270,7 @@ function Coordinators_Admin() {
                                 }    
                                 </tbody>
                             </table>
+                            </form>
                         </div>
                     </div>
                 </div>

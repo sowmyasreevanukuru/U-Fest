@@ -37,6 +37,8 @@ import Events_Admin from './components/admin/Events_Admin';
 import Profile_Admin from './components/admin/Profile_Admin';
 import Schedule from './components/Schedule';
 import Profile_Coodinator from './components/coordinator/Profile_Coordinator';
+import EventDetails_Coordinator from './components/coordinator/EventDetails_Coordinator';
+import { Provider } from 'react-redux';
 
 function App(props) { 
   return(
@@ -58,12 +60,12 @@ function App(props) {
           <Route path='Profile_Admin' element={<Profile_Admin/>}/>
           
         </Route>
-
+        
         <Route path='/Coordinator' element={<Backend_C/>}>
           <Route index element={<Coordinator/>}/>
           <Route path='VerifyTeams_Coordinator' element={<VerifyTeams_Coordinator/>}/>
           <Route path='Profile_Coordinator' element={<Profile_Coodinator/>}/>
-          
+          <Route path='EventDetails_Coordinator' element={<EventDetails_Coordinator/>}/>
         </Route>
         <Route path="*" element={<Error_404/>}/>
       </Routes>

@@ -28,6 +28,10 @@ const UserSchema = new mongoose.Schema({
             }
         }
     },
+    status:{
+        type:String,
+        default:'Active'
+    },
     role:{
         type: String,
         default:'C' 

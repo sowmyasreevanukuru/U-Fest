@@ -21,21 +21,53 @@ router.get("/all", async (req, res) => {
       }
     });
   });
-  
-router.delete('/delete:_id',async(req,res) => {
+
+//update department
+router.put("/update",async(req,res) => {
   try {
-    const dept = await Department.findOne({_id: req.params.id });
-    if(!dept){
-        return res.status(400).json({ msg: "department not found"});
-    }
-    dept.deleteOne({_id:req.params.id})
-    res.json(dept);
-} catch (err) {
+    await Department.findByIdAndUpdate({_id: req.body.id}, {name: req.body.name});
+    res.json({msg: "Department name updated successfully"}); 
+  } catch (err) {
     console.error(err.message);
-    res.status(500).send("Server Error");
+    res.status(500).json({msg: "Server Error"});
 }
- // Department.deleteOne({_id:new objectID(req.param.id)},)
 });
+
+ // @route   POST api/department/deleteone
+// @desc    delete dept
+// // @access  Public
+//   router.post('/delete',(req,res,next)=>{
+//     try{
+//         console.log("abc")
+//         User.findByIdAndRemove(req.body.id)
+//         .then(result=>{
+//             res.status(200).json({
+//                 message:"deleted"
+            
+//             })
+//         })
+//     }
+//     catch(err)
+//     {
+//        console.log(err.message);
+//        res.status(500).send("Internal Server Error");
+//     }
+// });
+
+// router.delete('/delete:_id',async(req,res) => {
+//   try {
+//     const dept = await Department.findOne({_id: req.params.id });
+//     if(!dept){
+//         return res.status(400).json({ msg: "department not found"});
+//     }
+//     dept.deleteOne({_id:req.params.id})
+//     res.json(dept);
+// } catch (err) {
+//     console.error(err.message);
+//     res.status(500).send("Server Error");
+// }
+//  // Department.deleteOne({_id:new objectID(req.param.id)},)
+// });
 //   // @route   PUT api/departments/updatees
 //   // @desc    update existing department
 //   // @access  Private

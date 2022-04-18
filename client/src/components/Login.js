@@ -48,19 +48,29 @@ function Login() {
             config
           );
           console.log(res.data.user.name);
+          localStorage.setItem("email",email);
+          localStorage.setItem("password",password);
+          localStorage.setItem("name",res.data.user.name);
+          localStorage.setItem("dept",res.data.user.department);    
+          
           if(res.status === 200) {
             
             if(res.data.user.role==="C")
             {
-              localStorage.setItem("email",email);
-              localStorage.setItem("password",password);
+              if(res.data.user.status === "Active"){
               window.location.href="./Coordinator";
+              }
+              if(res.data.user.status === "Inactive"){
+                swal({
+                  title: "Invalid",
+                  text: "Access denied",
+                  icon: "warning",
+                  button: "OK",
+                });
+              }
             }
             else if(res.data.user.role==="A")
             {
-              
-              localStorage.setItem("email",email);
-              localStorage.setItem("password",password);
               window.location.href="./Admin";
             }
             else
@@ -80,7 +90,7 @@ function Login() {
          // alert("Invalid credentials")
          swal({
           title: "Invalid",
-          text: "Invalid Credentials!",
+          text: "Invalid Credentials",
           icon: "warning",
           button: "OK",
         });
