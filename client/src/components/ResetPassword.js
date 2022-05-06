@@ -84,6 +84,7 @@ function ResetPassword() {
                   aria-describedby="emailHelp"
                   name="password"
                   value={password}
+                  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                   onChange={(e) => onChange(e)}
                   required
                 />

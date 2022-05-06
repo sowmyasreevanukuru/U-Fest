@@ -62,8 +62,7 @@ function Login() {
               }
               if(res.data.user.status === "Inactive"){
                 swal({
-                  title: "Invalid",
-                  text: "Access denied",
+                  title: "Access denied",
                   icon: "warning",
                   button: "OK",
                 });
