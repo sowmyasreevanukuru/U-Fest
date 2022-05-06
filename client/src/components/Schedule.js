@@ -23,23 +23,28 @@ function Schedule() {
           <h1 className="fs-5 text-center mb-0">Schedule</h1>
           <hr className="w-25 mx-auto" />
         </div>
-        { data.map((data)=>
-        <Row xs={1} md={7} className="g-4">
-        {Array.from({ length: 1 }).map((_, idx) => (
-          <Col>
-            <Card className="text-center">
-              <Card.Body>
-                <Card.Title>{data.eventname}</Card.Title>
-                <Card.Subtitle>{data.venue}</Card.Subtitle>
-                <Card.Text>
-                </Card.Text>
-              </Card.Body>
-            </Card>
-          </Col>
-        ))}
-      </Row>
-        )}
-        
+        <div className="card-body">
+        <Container style={{marginLeft:"200px"}}>
+            <table className='table table-borderless' style={{textAlign:"center",fontSize:"20px"}}>
+                <thead>
+                  <tr>
+                    <th style={{textAlign:"right"}}>Event</th>
+                    <th style={{textAlign:"left",paddingLeft:"70px"}}>venue</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {
+                    data.map((data)=>
+                    <tr key={data.id}>
+                      <td style={{textAlign:"right"}}>{data.eventname}</td>
+                      <td style={{textAlign:"left",paddingLeft:"70px"}}>{data.venue}</td>
+                    </tr>
+                    )
+                }
+              </tbody>
+            </table>
+        </Container>
+        </div>
       </div>
     </div>
     </section>

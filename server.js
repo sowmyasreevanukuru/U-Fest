@@ -21,6 +21,7 @@ app.use('/api/register', require('./routes/api/register'));
 app.use('/api/event', require('./routes/api/event'));
 app.use('/api/scheduleevent', require('./routes/api/scheduleevent'));
 app.use('/api/department', require('./routes/api/department'));
+app.use('/api/password-reset',require('./routes/api/passwordReset'));
 //app.use('/api/deletedept', require('./routes/api/deletedept'));
 
 const PORT = process.env.PORT || 5000

@@ -8,7 +8,7 @@ const User = require('../../models/User');
 const auth = require('../../middleware/auth');
 
 // @route   GET api/users/all
-// @desc    Register route
+// @desc    Get user all
 // @access  Public
 //router.get("/all", auth, async (req, res) => {
 router.get("/all", async (req, res) => {
@@ -78,7 +78,14 @@ async (req,res) => {
    // res.send('Co-ordinator Registered!');
 }); 
 
+// @route   POST api/users/password-reset
+// @desc    Send password reset link
+// @access  
 
+
+// @route   POST api/users/password-reset/:userId/:token
+// @desc    Reset password
+// @access  
 
 
 module.exports = router;

@@ -1,6 +1,7 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState,useEffect,Component} from 'react'
 import axios from 'axios';
 import swal from 'sweetalert';
+import { render } from 'react-dom';
 
 function Coordinators_Admin() {
     if(localStorage.getItem("email") === null)
@@ -12,6 +13,7 @@ function Coordinators_Admin() {
     {
         window.location.href="./";
     }
+    
     //api call for viewing all users
     const [data,setData] = useState([]);
     const [data2,setData2] = useState([]);
@@ -142,7 +144,7 @@ function Coordinators_Admin() {
                   });
                 }
               });
-        
+            this.render()
         }
       
       }
@@ -157,6 +159,7 @@ function Coordinators_Admin() {
 
       }
     }
+    
   return (
     <div className='sb-nav-fixed'>
     <div id='layoutSidenav'>
@@ -261,9 +264,11 @@ function Coordinators_Admin() {
                                             <td>{data.department}</td>
                                             <td>{data.status}</td>
                                             <td>
+                                            
                                                 <button type="submit" className="btn btn-outline-success btn-sm" onClick={()=>{selectuser(data._id,data.status);}}  style={{marginRight:'10px'}}>
                                                     <i class="fas fa-user-edit"></i>
                                                 </button>
+                                            
                                             </td>
                                         </tr>
                                     )
@@ -282,3 +287,4 @@ function Coordinators_Admin() {
 }
 
 export default Coordinators_Admin
+

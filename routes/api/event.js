@@ -52,20 +52,31 @@ router.put("/updatedesc",async(req,res) => {
 //update event
 router.put("/update",async(req,res) => {
   try {
-    await Event.findByIdAndUpdate(
-      {_id: req.body.id}, 
-      {eventname: req.body.eventname},
-      {coordinatorname:req.body.coordinatorname},
-      {venue:req.body.venue},
-      {noofparticipants:req.body.noofparticipants}
-    );
+    let ev = new Event ({
+      _id:req.body.id,
+      eventname: req.body.eventname,
+      coordinatorname:req.body.coordinatorname,
+      venue:req.body.venue,
+      noofparticipants:req.body.noofparticipants
+  });
+   // let ev = new Event({{_id: req.body.id}})
+    // await Event.findByIdAndUpdate(
+    //   {_id: req.body.id}, 
+    //   {eventname: req.body.eventname},
+    //   {coordinatorname:req.body.coordinatorname},
+    //   {venue:req.body.venue},
+    //   {noofparticipants:req.body.noofparticipants}
+    // );
+
+    await Event.findByIdAndUpdate(ev);
     res.json({msg: "Event updated successfully"}); 
   } catch (err) {
     console.error(err.message);
-    res.status(500).json({msg: "Server Error"});
+    res.status(500).json({msg: err.message});
     
 }
 });
+
 
  
 // // @route   GET api/event/cr

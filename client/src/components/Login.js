@@ -139,13 +139,11 @@ function Login() {
                   required
                 />
               </div>
-                <NavLink to="/">Forgot password</NavLink>
-                
-              
               <button type="submit" className="btn btn-primary w-100 mt-4 rounded-pill">
                 Login
               </button>
             </form>
+            <a href="/ForgotPassword">Forgot password?</a>
           </div>
         </div>
       </div>

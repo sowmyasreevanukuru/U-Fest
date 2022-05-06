@@ -38,6 +38,8 @@ import Profile_Admin from './components/admin/Profile_Admin';
 import Schedule from './components/Schedule';
 import Profile_Coodinator from './components/coordinator/Profile_Coordinator';
 import EventDetails_Coordinator from './components/coordinator/EventDetails_Coordinator';
+import ForgotPassword from './components/ForgotPassword';
+import ResetPassword from './components/ResetPassword';
 import { Provider } from 'react-redux';
 
 function App(props) { 
@@ -50,6 +52,8 @@ function App(props) {
           <Route path='/Login' element={<Login/>}/>
           <Route path='/Register' element={<Register/>}/>
           <Route path='/Schedule' element={<Schedule/>}/>
+          <Route path='/ForgotPassword' element={<ForgotPassword/>}/>
+          <Route path='/password-reset' element={<ResetPassword/>}/>
         </Route>
         
         <Route path='/Admin' element={<Backend/>}>

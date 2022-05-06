@@ -12,13 +12,13 @@ function Header() {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                 <li className="nav-item">
-                    <NavLink className="nav-link active" aria-current="page" to="/">Home</NavLink>
+                    <NavLink className="nav-link active" aria-current="page" to="/" style={{fontSize:"20px"}}>Home</NavLink>
                 </li>
                 <li className="nav-item">
-                    <NavLink className="nav-link" to="/Event">Events</NavLink>
+                    <NavLink className="nav-link" to="/Event" style={{fontSize:"20px"}}>Events</NavLink>
                 </li>
                 <li className="nav-item">
-                    <NavLink className="nav-link" to="/Schedule">Schedule</NavLink>
+                    <NavLink className="nav-link" to="/Schedule" style={{fontSize:"20px"}}>Schedule</NavLink>
                 </li>
             </ul>
             <NavLink className="navbar-brand fw-bolder fs-4 mx-auto" to="/Home">U-FEST</NavLink>
