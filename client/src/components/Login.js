@@ -48,6 +48,7 @@ function Login() {
             config
           );
           console.log(res.data.user.name);
+          localStorage.setItem("_id",res.data.user._id);
           localStorage.setItem("email",email);
           localStorage.setItem("password",password);
           localStorage.setItem("name",res.data.user.name);

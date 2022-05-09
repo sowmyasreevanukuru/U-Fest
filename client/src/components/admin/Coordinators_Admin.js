@@ -13,18 +13,32 @@ function Coordinators_Admin() {
     {
         window.location.href="./";
     }
-    
     //api call for viewing all users
     const [data,setData] = useState([]);
     const [data2,setData2] = useState([]);
-    useEffect(async()=>{
-        let result = await axios.get("/api/users/all");
+    const fetchData = () => {
+      axios.get("/api/users/all").then((result) => {
         setData2(delete(result.data.data[0]))
-        console.warn("newdata",data2)
+        //console.warn("newdata",data2)
         setData(result.data.data)
+      });
+    };
+    useEffect(() => {
+      fetchData();
+    }, []); 
 
-    },[])
-    console.warn("result",data)
+
+    //api call for viewing all users
+    // const [data,setData] = useState([]);
+    // const [data2,setData2] = useState([]);
+    // useEffect(async()=>{
+    //     let result = await axios.get("/api/users/all");
+    //     setData2(delete(result.data.data[0]))
+    //     console.warn("newdata",data2)
+    //     setData(result.data.data)
+
+    // },[])
+    // console.warn("result",data)
 
     //to get all departments
    const [dept_data,setdept] = useState([]);
@@ -80,7 +94,7 @@ function Coordinators_Admin() {
             icon: "success",
             button: "OK",
           });
-         
+          fetchData();
       }catch(err){
         console.log(err.response.data);
         swal({
@@ -142,10 +156,11 @@ function Coordinators_Admin() {
                   swal("Status updated!", {
                     icon: "success",
                   });
+                  fetchData();
                 }
               });
-            this.render()
         }
+        
       
       }
       catch(err){

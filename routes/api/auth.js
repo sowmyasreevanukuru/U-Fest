@@ -90,4 +90,58 @@ router.post('/', async (req,res) => {
    // res.send('Co-ordinator Registered!');
 }); 
 
+
+
+// @route   PATCH api/auth/saveprofile
+// @desc    Save changes in profile
+router.patch("/saveprofile",async(req,res) => {
+    try {
+      console.log("asdfghjkl",req.body)
+      let user1 = {};
+      User.findOne({ _id: req.body._id }, (err, user) => {
+        if (err) {
+          user = {};
+        } else if (user == null) {
+          user = {};
+        } else {
+          user1 = user;
+        }
+      });
+      const salt = await bcrypt.genSalt(10);
+      let pass = await bcrypt.hash(req.body.password,salt);
+      User.findOneAndUpdate(
+        { _id: req.body._id },
+        {
+            $set: {
+                name: req.body.name,
+                 
+                email:req.body.email,
+                  
+                password:pass
+                 
+              },
+        },  
+        
+        {new: true },
+        (err, user) => {
+          if (err) {
+            return res.json({ err: err });
+          } else {
+           // console.log(req.body)
+            user.name = req.body.name,
+            user.email = req.body.email,
+            user.password = pass
+            return res.json({ data: user });
+          }
+
+        }
+      );
+    } catch (err) {
+      console.log(err.message);
+      res.status(500).json({msg: err.message});
+  }
+  });
+
+
+
 module.exports = router;

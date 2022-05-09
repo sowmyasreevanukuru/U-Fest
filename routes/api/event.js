@@ -50,34 +50,98 @@ router.put("/updatedesc",async(req,res) => {
 });
 
 //update event
-router.put("/update",async(req,res) => {
+router.patch("/update",async(req,res) => {
   try {
-    let ev = new Event ({
-      _id:req.body.id,
-      eventname: req.body.eventname,
-      coordinatorname:req.body.coordinatorname,
-      venue:req.body.venue,
-      noofparticipants:req.body.noofparticipants
-  });
-   // let ev = new Event({{_id: req.body.id}})
-    // await Event.findByIdAndUpdate(
-    //   {_id: req.body.id}, 
-    //   {eventname: req.body.eventname},
-    //   {coordinatorname:req.body.coordinatorname},
-    //   {venue:req.body.venue},
-    //   {noofparticipants:req.body.noofparticipants}
-    // );
+    console.log("asdfghjkl",req.body)
+    let event1 = {};
+    Event.findOne({ _id: req.body._id }, (err, event) => {
+      if (err) {
+        event = {};
+      } else if (event == null) {
+        event = {};
+      } else {
+        event1 = event;
+      }
+    });
+    Event.findOneAndUpdate(
+      { _id: req.body.id },
+      {
+        $set: {
+          eventname: req.body.eventname,
+           
+          coordinatorname:req.body.coordinatorname,
+            
+          venue:req.body.venue,
+            
+          noofparticipants:req.body.noofparticipants
+           
+        },
+      },
 
-    await Event.findByIdAndUpdate(ev);
-    res.json({msg: "Event updated successfully"}); 
+
+      { new: true },
+      (err, event) => {
+        if (err) {
+          return res.json({ err: err });
+        } else {
+         // console.log(req.body)
+          event.eventname = req.body.eventname,
+          event.coordinatorname=req.body.coordinatorname,
+          event.venue=req.body.venue,
+          event.noofparticipants=req.body.noofparticipants
+          return res.json({ data: event });
+        }
+      }
+    );
   } catch (err) {
     console.error(err.message);
     res.status(500).json({msg: err.message});
-    
 }
 });
 
+//update event details
+router.patch("/updatedetails",async(req,res) => {
+  try {
+    console.log("asdfghjkl",req.body)
+    let event1 = {};
+    Event.findOne({ _id: req.body._id }, (err, event) => {
+      if (err) {
+        event = {};
+      } else if (event == null) {
+        event = {};
+      } else {
+        event1 = event;
+      }
+    });
+    Event.findOneAndUpdate(
+      { _id: req.body._id },
+      {
+        $set: {
+          eventdesc: req.body.eventdesc,
+           
+          rules:req.body.rules,
+             
+        },
+      },
 
+
+      { new: true },
+      (err, event) => {
+        if (err) {
+          return res.json({ err: err });
+        } else {
+         // console.log(req.body)
+          event.eventdesc = req.body.eventdesc,
+          event.rules=req.body.rules
+          return res.json({ data: event });
+        }
+      }
+    );
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({msg: err.message});
+}
+});
  
 // // @route   GET api/event/cr
 // // @desc    get  event according to user route

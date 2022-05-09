@@ -5,5 +5,4 @@ const ProfileSchema = new mongoose.Schema({
         ref : 'user'
         },
 });
-
 module.exports = Profile = mongoose.model("profile",ProfileSchema);

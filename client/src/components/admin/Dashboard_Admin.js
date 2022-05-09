@@ -1,12 +1,11 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
 
 function Dashboard_Admin() {
     let email = localStorage.getItem("email");
     if(localStorage.getItem("email") === null)
     {
         window.location.href="./";
-        console.log(email+"hi")
+       // console.log(email+"hi")
     }
   return (
     <div className='sb-nav-fixed'>

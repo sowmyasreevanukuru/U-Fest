@@ -38,13 +38,11 @@ async (req,res) => {
         return res.status(400).json({errors: errors.array()});
     }
 
-    
     const{name,enro,email,department,eventname,contact} = req.body;
     try{
 
         let registerr = await User.findOne({email});
 
-       
         registerr = new User({
                 name,
                 enro,

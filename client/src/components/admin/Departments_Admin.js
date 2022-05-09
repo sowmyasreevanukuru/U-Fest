@@ -9,14 +9,23 @@ function Departments_Admin() {
         window.location.href="./";
         console.log(email+"hi")
     }
-        //api call for viewing all departments
-        const [data,setData] = useState([]);
+     //api call for viewing all departments
+    const [data,setData] = useState([]);
+    const fetchData = () => {
+      axios.get("/api/department/all").then((result) => {
+        setData(result.data.data)
+      });
+    };
+    useEffect(() => {
+      fetchData();
+    }, []); 
+       
         
-        useEffect(async()=>{
-            let result = await axios.get("/api/department/all");
-            setData(result.data.data)
-        },[])
-        console.warn("result",data)
+        // useEffect(async()=>{
+        //     let result = await axios.get("/api/department/all");
+        //     setData(result.data.data)
+        // },[])
+        // console.warn("result",data)
     
         const[formData,setFormData] = useState({
             name: ""
@@ -53,6 +62,7 @@ function Departments_Admin() {
                 icon: "success",
                 button: "OK",
               });
+              fetchData();
             console.log(res)
           }catch(err){
             
@@ -98,6 +108,8 @@ function Departments_Admin() {
                 icon: "success",
                 button: "OK",
               });
+              setShow(false)
+              fetchData();
         }
       
       }

@@ -9,21 +9,31 @@ function Events_Admin() {
         window.location.href="./";
         console.log(email+"hi")
     }
-    //api call for viewing all event
     const [data,setData] = useState([]);
-    useEffect(async()=>{
-        let result = await axios.get("/api/event/all");
-        setData(result.data.data)
-    },[])
-    console.warn("result",data)
+    const fetchData = () => {
+        axios.get("/api/event/all").then((result) => {
+          setData(result.data.data)
+        });
+    };
+      useEffect(() => {
+        fetchData();
+      }, []); 
+    // //api call for viewing all event
+    // const [data,setData] = useState([]);
+    // useEffect(async()=>{
+    //     let result = await axios.get("/api/event/all");
+    //     setData(result.data.data)
+    // },[])
+    // //console.warn("result",data)
 
-
+   //api call for get all users
    const [cr_data,setdept] = useState([]);
    useEffect(async()=>{
        let cr_result = await axios.get("/api/users/all");
        setdept(cr_result.data.data)
+       
    },[])
-   console.warn("cr_result",cr_data)
+   //console.warn("cr_result",cr_data)
  
     const[formData,setFormData] = useState({
         eventname:"",
@@ -31,14 +41,14 @@ function Events_Admin() {
         venue:"",
         noofparticipants:""
       });
-      const {
+    const {
         eventname,
         coordinatorname,
         venue,
         noofparticipants
       } = formData;
-      const onChange = (e) =>
-      setFormData({...formData, [e.target.name]:e.target.value});
+    const onChange = (e) =>
+    setFormData({...formData, [e.target.name]:e.target.value});
   
     let save = async (e) => {
       e.preventDefault();
@@ -66,10 +76,11 @@ function Events_Admin() {
         //swal("Registered!", "Registered successfully!", "success");
         swal({
             title: "Done",
-            text: "Coordinator added!",
+            text: "Event added!",
             icon: "success",
             button: "OK",
           });
+          fetchData();
       }catch(err){
         console.log(err.response.data);
         swal({
@@ -82,60 +93,75 @@ function Events_Admin() {
     }
     const [show,setShow] = useState(false)
     const [EventName,setEventName] = useState("");
-    const [Id,setID] = useState("");
+    const [id,setID] = useState("");
     const [CoordinatorName,setCoordinatorName] = useState("");
     const [Venue,setVenue] = useState("");
     const [NoofParticipants,setNoofParticipants] = useState("");
     
-        
-    function selectEvent(id,eventname,coordinatorname,venue,noofparticipants)
-    {
-       console.warn(id,eventname,noofparticipants,coordinatorname,venue)
-       setEventName(eventname)
-       setCoordinatorName(CoordinatorName)
-       setVenue(venue)
-       setNoofParticipants(NoofParticipants)
-       setID(id)
-       //console.warn(id)
-    }
-    const handleUpdate = async(e) => {
+    let updateEvent = async (e) => {
         e.preventDefault();
-      let newid = Id
-      let neweventname = EventName
-      let newcoordinatorname = CoordinatorName
-      let newvenue = Venue
-      let newnumber = NoofParticipants
-      //document.getElementById("newnoofparticipants").value=NoofParticipants
-      try{
-        const config = {
-          header:{
-            "Content-Type": "application/json"
-          }
-        }
-        const event = { "id": newid, "eventname": neweventname,"coordinatorname" : newcoordinatorname,"venue":newvenue ,"noofparticipants":newnumber};
-        console.warn(event)
-        const res = await axios.put("/api/event/update", event, config);
-        console.log("updated!")
-        if(res.status === 200){
-        
+        let _id = id;
+        let eventname = EventName;
+        let coordinatorname = CoordinatorName;
+        let venue = Venue;
+        let noofparticipants = NoofParticipants;
+
+        const updatenames = {
+          id,
+          eventname,
+          coordinatorname,
+          venue,
+          noofparticipants
+        };
+        console.log("updated names",updatenames);
+        try {
+         // console.log(updatenames);
+          const config = {
+            headers: {
+              "Content-Type": "application/json"
+            },
+          };
+
+          const body = JSON.stringify(updatenames);
+          //console.log(body);
+          const res = await axios.patch(
+            "/api/event/update",
+            body,
+            config
+          );
+          if (res.status === 200) {
+            console.warn("result new update",res.data)
             swal({
                 title: "Done",
                 text: "Event updated!",
                 icon: "success",
                 button: "OK",
               });
+              setShow(false)
+              fetchData();
+          } else {
+            swal({
+                title: "Error",
+                text: "Error while updating",
+                icon: "warning",
+                button: "OK",
+              });
+          }
+        } catch (err) {
+          console.log(err.response.data);
+          console.error(err.response.data);
         }
-      
-      }
-      catch(err){
-       console.log(err.response.data);
-       swal({
-        title: "Error",
-        text: "Error while updating",
-        icon: "warning",
-        button: "OK",
-      });
-      }
+      };
+
+    function selectEvent(id,eventname,coordinatorname,venue,noofparticipants)
+    {
+       //console.warn(id,eventname,noofparticipants,coordinatorname,venue)
+       setEventName(eventname)
+       setCoordinatorName(coordinatorname)
+       setVenue(venue)
+       setNoofParticipants(noofparticipants)
+       setID(id)
+       //console.warn(id)
     }
   return (
     <div className='sb-nav-fixed'>
@@ -221,12 +247,15 @@ function Events_Admin() {
                            <h5>Update event</h5>
                         </div>
                         <div className="card-body">
-                        <form onSubmit={e => handleUpdate(e)}
-                        method="post">
+                        <form 
+                        action="../../../../routes/api/event"
+                        method="post"
+                        className="signup-form"
+                        onSubmit={updateEvent}>
                         <table>
                          <tr style={{borderSpacing:"0px 50px"}}>
                             <td>
-                            <input type="hidden" value={Id}/>
+                            <input type="hidden" value={id}/>
                                 <input className="form-control" 
                                 id="eventname" 
                                 type="text" 

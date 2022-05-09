@@ -8,9 +8,9 @@ function Profile_Coodinator() {
     let name = localStorage.getItem("name");
     let dept = localStorage.getItem("dept");
     
-    console.warn(email);
-    console.warn(password);
-    console.warn(name);
+    // console.warn(email);
+    // console.warn(password);
+    // console.warn(name);
     
     if(localStorage.getItem("email") === null)
     {

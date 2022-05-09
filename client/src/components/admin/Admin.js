@@ -20,8 +20,8 @@ function Admin(props) {
        // let countdept = Object.keys(result.data.data).length;
         console.log(Object.keys(result.data.data).length)
     },[])
-    console.warn("result",data)
-    console.warn("countd",countdept)
+    //console.warn("result",data)
+    //console.warn("countd",countdept)
 
      //api call for viewing all event
      const [countevent,setcountevent] = useState([]);
@@ -30,7 +30,7 @@ function Admin(props) {
          setData(result.data.data)
          setcountevent(Object.keys(result.data.data).length);
      },[])
-     console.warn("counte",countevent)
+     //console.warn("counte",countevent)
    
   return (
     <div className='sb-nav-fixed'>
